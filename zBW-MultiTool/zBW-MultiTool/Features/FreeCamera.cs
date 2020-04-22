@@ -24,7 +24,7 @@ namespace zCubed.Features
         {
             if (CommonGlobals.CameraInstance == null)
             {
-                Tools.RecursiveFunctions.FindInScene("FollowCamera");
+                Tools.RecursiveFunctions.SceneList("FollowCamera");
 
                 if (RecursiveGlobals.lastFound)
                 {

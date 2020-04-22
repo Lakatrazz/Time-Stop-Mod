@@ -11,7 +11,7 @@ namespace zCubed
         public const string Name = "zBW-Tools"; // Name of the Mod.  (MUST BE SET)
         public const string Author = "zCubed"; // Author of the Mod.  (Set as null if none)
         public const string Company = null; // Company that made the Mod.  (Set as null if none)
-        public const string Version = "1.2.1"; // Version of the Mod.  (MUST BE SET)
+        public const string Version = "1.2.2"; // Version of the Mod.  (MUST BE SET)
         public const string DownloadLink = null; // Download Link for the Mod.  (Set as null if none)
     }
 }

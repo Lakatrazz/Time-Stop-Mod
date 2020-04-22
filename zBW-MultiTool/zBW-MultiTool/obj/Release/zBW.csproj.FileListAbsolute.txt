@@ -18,3 +18,11 @@ C:\Users\kevst\source\repos\zBW-MultiTool\zBW-MultiTool\obj\Release\zBW.csproj.C
 C:\Users\kevst\source\repos\zBW-MultiTool\zBW-MultiTool\obj\Release\zBW.csproj.CopyComplete
 C:\Users\kevst\source\repos\zBW-MultiTool\zBW-MultiTool\obj\Release\zBW.dll
 C:\Users\kevst\source\repos\zBW-MultiTool\zBW-MultiTool\obj\Release\zBW.pdb
+C:\Users\kevst\Desktop\GitHub\Boneworks-MultiTool\zBW-MultiTool\zBW-MultiTool\obj\Release\zBW.csprojAssemblyReference.cache
+C:\Users\kevst\Desktop\GitHub\Boneworks-MultiTool\zBW-MultiTool\zBW-MultiTool\obj\Release\zBW.csproj.CoreCompileInputs.cache
+C:\Users\kevst\Desktop\GitHub\Boneworks-MultiTool\zBW-MultiTool\zBW-MultiTool\obj\Release\zBW.dll
+C:\Users\kevst\Desktop\GitHub\Boneworks-MultiTool\zBW-MultiTool\zBW-MultiTool\obj\Release\zBW.pdb
+C:\Users\kevst\Desktop\GitHub\Boneworks-MultiTool\zBW-MultiTool\zBW-MultiTool\bin\Release\zBW.dll
+C:\Users\kevst\Desktop\GitHub\Boneworks-MultiTool\zBW-MultiTool\zBW-MultiTool\bin\Release\zBW.pdb
+C:\Users\kevst\Desktop\GitHub\Boneworks-MultiTool\zBW-MultiTool\zBW-MultiTool\bin\Release\MelonLoader.ModHandler.pdb
+C:\Users\kevst\Desktop\GitHub\Boneworks-MultiTool\zBW-MultiTool\zBW-MultiTool\obj\Release\zBW.csproj.CopyComplete
