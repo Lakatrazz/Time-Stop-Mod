@@ -20,21 +20,25 @@ namespace zCubed.Tools
 
             for (int i = 0; i <= SceneObjects.Length - 1; i++)
             {
-                if (target == "")
-                {
-                    MelonModLogger.Log(ConsoleColor.Blue, "List Start, Root: " + SceneObjects[i].name);
-                    ChildList(SceneObjects[i].transform);
-                    MelonModLogger.Log(ConsoleColor.Blue, "List End");
-                }
-                else
-                    ChildList(SceneObjects[i].transform, target);
-            }
-        }
+                Transform targetTransform = SceneObjects[i].transform;
 
-        // Helper function for locating a target inside the entire scene
-        public static void FindInScene(string target)
-        {
-            SceneList(target);
+                switch (target)
+                {
+                    default:
+                        ChildList(targetTransform, target);
+                        break;
+
+                    case "":
+                        MelonModLogger.Log(ConsoleColor.Blue, "List Start, Root: " + SceneObjects[i].name);
+                        ChildList(targetTransform);
+                        MelonModLogger.Log(ConsoleColor.Blue, "List End");
+                        break;
+
+                    case "$ID_FINDER":
+                        IDList(targetTransform);
+                        break;
+                }                  
+            }
         }
 
         // This is still public so that people can use it for their own thing
@@ -78,6 +82,19 @@ namespace zCubed.Tools
                     else
                         ChildList(transform.GetChild(c), target);
                 }
+            }
+        }
+
+        // Lists all findable asset IDs
+        public static void IDList(Transform transform)
+        {
+            for (int c = 0; c <= transform.childCount - 1; c++)
+            {
+                // Organization log
+                MelonModLogger.Log(ConsoleColor.Blue, transform.name + " ID: " + transform.gameObject.GetInstanceID().ToString());
+
+                // This is where the recursiveness comes from
+                IDList(transform.GetChild(c));
             }
         }
     }

@@ -88,7 +88,11 @@ namespace zCubed
             {
                 // List all things in the current scene
                 if (Input.GetKeyDown(KeyCode.Home))
-                    Tools.RecursiveFunctions.SceneList();
+                    RecursiveFunctions.SceneList();
+
+                // List all findable id's in the current scene
+                if (Input.GetKeyDown(KeyCode.Insert))
+                    RecursiveFunctions.SceneList("$ID_FINDER");
 
                 // Spawn or delete the gravity cube
                 if (Input.GetKeyDown(KeyCode.C))
