@@ -284,7 +284,6 @@
     <Compile Include="Globals\RecursiveGlobals.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Tools\ModUI.cs" />
     <Compile Include="Tools\RecursiveFunctions.cs" />
     <Compile Include="Tools\SceneLoadLogger.cs" />
   </ItemGroup>

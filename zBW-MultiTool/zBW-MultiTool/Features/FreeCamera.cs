@@ -44,8 +44,9 @@ namespace zCubed.Features
                          
                         MelonModLogger.Log("Instance: Created Free Camera");
 
-                        CameraTransform = RecursiveGlobals.lastFound.transform.parent;
+                        CameraTransform = GoProCube.transform;
                         CameraComponent = RecursiveGlobals.lastFound.GetComponent<Camera>();
+                        CameraComponent.transform.localEulerAngles = Vector3.zero;
 
                         CommonGlobals.CameraInstance = this;
                     }
@@ -139,6 +140,7 @@ namespace zCubed.Features
         // Faces the camera towards the target
         public void LookAtTarget()
         {
+            CameraComponent.transform.localEulerAngles = Vector3.zero;
             CameraTransform.LookAt(CameraFollowTarget.position);
         }
 
