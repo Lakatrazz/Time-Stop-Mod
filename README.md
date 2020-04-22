@@ -1,7 +1,15 @@
-# zCubed's Boneworks Multi-Tool v1.2.1
+# zCubed's Boneworks Multi-Tool v1.2.2
 
 ### For unstable releases, download from the source here
 ### For stable releases, download from https://bonetome.com/mods/10 or releases tab here
+
+**Update v1.2.1**
+* The entire project has been refactored and restructured for easy modification and usage as a library.  
+* The project is now open source, anyone can help contribute via pull requests and forks!  
+
+**Update v1.2.2**
+* ADDED - Instance ID Finder, allows for people to find Instance IDs so they can precache prefabs and other game content.
+* ADDED - Instanced ID Keybind.
 
 **Feature List**  
 * Gravity Modifier  
@@ -22,12 +30,13 @@ allowing for other modders to locate Components or GameObjects they want to modi
 * A = Increment TimeScale  
 * D = Decrement TimeScale  
 * 0 (Zero) = Zero Gravity Toggle  
-* Home = Scene Object + Component Lister  
 * C = Gravity Cube spawn and despawn  
 * F = Toggle Free Camera tracking  
 * G = Spawn Free Camera / Recenter camera
 * R = Reset Gravity and TimeScale  
 * Tab = Output Gravity and TimeScale
+* Insert = Output all Object IDs in the entire scene
+* Home = Output all Scene Objects and Components in the entire scene
 
 **Pilot Mode Controls**  
 * W & S = Forward and Back  
@@ -45,10 +54,6 @@ allowing for other modders to locate Components or GameObjects they want to modi
 * Gravity Cube can't be picked up with hands, you have to use Gravity Cups, Gravity Plates, or Dev Manipulators (Gravity Guns).  
 * Free Camera will **NOT** work unless your spectator options are set to **Position = Center, Action Mode = Enabled**, this is a fault of the game that I can not fix.  
 * Free Camera will break spectator options, this is entirely the fault of how I have the Free Camera set up, there is no fix except changing the setting before creating the Free Camera.
-
-**What does this update change?**
-* The entire project has been refactored and restructured for easy modification and usage as a library.  
-* The project is now open source, anyone can help contribute via pull requests and forks!  
 
 **Troubleshooting**
 * If nothing happens, no console appears, absolutely nothing, you may have not installed MelonLoader
