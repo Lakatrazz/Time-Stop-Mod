@@ -19,6 +19,7 @@ namespace zCubed.Globals
         // Instances of features
         public static FreeCamera CameraInstance = null;
         public static GravityCube GravCubeInstance = null;
+        public static BlackHole BlackHoleInstance = null;
 
         public static void Reset()
         {

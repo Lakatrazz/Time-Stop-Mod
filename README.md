@@ -1,4 +1,4 @@
-# zCubed's Boneworks Multi-Tool v1.2.2
+# zCubed's Boneworks Multi-Tool v1.3.0 - UNSTABLE BRANCH
 
 ### For unstable releases, download from the source here
 ### For stable releases, download from https://bonetome.com/mods/10 or releases tab here
@@ -10,6 +10,15 @@
 **Update v1.2.2**
 * ADDED - Instance ID Finder, allows for people to find Instance IDs so they can precache prefabs and other game content.
 * ADDED - Instanced ID Keybind.
+
+**Update v1.3.0**
+* ADDED - Free Camera has the ability to act as a Third Person Camera.
+* ADDED - New Input System, allowing for the mod to lock controls into categorys, meaning that it is now easier to classify and 
+prevent control conflicts.
+* FIXED - Time Scale broke ingame Time Controls.
+* FIXED - Camera LookAt().
+* FIXED - Performance Issues, the mod had some functions that were misbehaving, or were hogging resources.
+* MORE BEING ADDED!
 
 **Feature List**  
 * Gravity Modifier  
@@ -31,20 +40,24 @@ allowing for other modders to locate Components or GameObjects they want to modi
 * D = Decrement TimeScale  
 * 0 (Zero) = Zero Gravity Toggle  
 * C = Gravity Cube spawn and despawn  
-* F = Toggle Free Camera tracking  
-* G = Spawn Free Camera / Recenter camera
+* G = Spawn Free Camera / Take control of camera
 * R = Reset Gravity and TimeScale  
 * Tab = Output Gravity and TimeScale
 * Insert = Output all Object IDs in the entire scene
 * Home = Output all Scene Objects and Components in the entire scene
 
-**Pilot Mode Controls**  
-* W & S = Forward and Back  
-* A & D = Left and Right  
-* C & V = Up and Down  
-* O = Orthographic mode  
-* F = Toggle FOV Scaler (Change with Scroll Wheel)  
-* E = Toggle Speed Multiplier Scaler (Change with Scroll Wheel) 
+**Camera Mode Controls**  
+* W & S = Forward and Back (Piloting) 
+* A & D = Left and Right (Piloting) 
+* C & V = Up and Down (Piloting) 
+* O = Orthographic mode
+* H = Pilot Mode
+* F = Follow Mode
+* T = Third Person Mode
+* B = Cycle Camera Offset Axis (Third Person Mode)
+* Scroll Wheel = Offset Active Axis (Third Person Mode)
+* R = Toggle FOV Modifier (Change with Scroll Wheel)  
+* Y = Toggle Speed Multiplier Scaler (Change with Scroll Wheel)
 * Tab = Output current value being modified (Will be changed later for a GUI)
 * Mouse = Rotate Camera
 

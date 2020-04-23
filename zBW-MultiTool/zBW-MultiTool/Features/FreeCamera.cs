@@ -58,7 +58,7 @@ namespace zCubed.Features
                         Component.Destroy(RecursiveGlobals.lastFound.GetComponent<ThirdPersonCameraController>());
                         Component.Destroy(RecursiveGlobals.lastFound.GetComponent<ValveCamera>());
                                             
-                        MelonModLogger.Log("Instance: Created Free Camera, press G to control it ");
+                        MelonModLogger.Log("Instance: Created Free Camera, press G to control it");
 
                         CameraAnchor = new GameObject().transform;
                         CameraAnchor.transform.parent = PlayerHead;
@@ -136,36 +136,15 @@ namespace zCubed.Features
         {
             if (CameraTransform)
             {
-                // Locks the cursor for piloting
-                if (isPiloting)
-                {
-                    Cursor.lockState = CursorLockMode.Locked;
-                    Cursor.visible = false;
-                }
-                else
-                {
-                    Cursor.lockState = CursorLockMode.None;
-                    Cursor.visible = true;
-                }
-
-                // Redirects
-                if (isPiloting)
-                    PilotCamera();
-
-                if (isThirdPerson)
-                    ThirdPerson();
-                else
-                    CameraTransform.parent = null;
-
-                if (isFollowing)
-                    LookAtTarget();
-
                 // Controls
                 if (CommonGlobals.GetInputLock() == Enums.InputLock.CameraControl)
                 {
                     // Lift the lock if pressed again
-                    if (Input.GetKeyDown(KeyCode.G))
+                    if (Input.GetKeyDown(KeyCode.E))
+                    {
+                        isPiloting = false;
                         CommonGlobals.SetInputLock(Enums.InputLock.Normal);
+                    }
 
                     if (Input.GetKeyDown(KeyCode.H))
                         EnablePilot();
@@ -255,6 +234,28 @@ namespace zCubed.Features
                         MelonModLogger.Log("Free Camera: Z Offset = " + zOffset.ToString());
                     }
                 }
+
+                // Locks the cursor for piloting
+                if (isPiloting)
+                {
+                    Cursor.lockState = CursorLockMode.Locked;
+                    Cursor.visible = false;
+                }
+                else
+                {
+                    Cursor.lockState = CursorLockMode.None;
+                    Cursor.visible = true;
+                }
+
+                // Redirects
+                if (isPiloting)
+                    PilotCamera();
+
+                if (isThirdPerson)
+                    ThirdPerson();
+
+                if (isFollowing)
+                    LookAtTarget();
 
                 // Sync the FOV if it is out of sync
                 if (FOV != CameraComponent.fieldOfView)

@@ -40,30 +40,17 @@ namespace zCubed
             else
                 CommonGlobals.GravCubeInstance.SetGravity();
             #endregion
+
+            #region BLACK HOLE
+            if (CommonGlobals.BlackHoleInstance != null)
+                CommonGlobals.BlackHoleInstance.Update();
+            #endregion
         }
         #endregion
 
         #region ON UPDATE METHOD
         public override void OnUpdate()
-        {
-            // Free Camera creation and usage
-            if (CommonGlobals.CameraInstance != null)
-            {
-                CommonGlobals.CameraInstance.CameraUpdate();
-
-                // Lock these functions so they dont interfere with piloting the camera
-                if (CommonGlobals.GetInputLock() == Enums.InputLock.Normal)
-                {
-                    if (Input.GetKeyDown(KeyCode.G))
-                        CommonGlobals.SetInputLock(Enums.InputLock.CameraControl);
-                }
-            }
-            else
-            {
-                if (Input.GetKeyDown(KeyCode.G))
-                    new FreeCamera();
-            }
-            
+        {            
             // If the lock is set to Normal, do these methods
             if (CommonGlobals.GetInputLock() == Enums.InputLock.Normal)
             {
@@ -82,6 +69,15 @@ namespace zCubed
                         new GravityCube();
                     else
                         CommonGlobals.GravCubeInstance.Delete();
+                }
+
+                // Spawn or delete the black hole
+                if (Input.GetKeyDown(KeyCode.B))
+                {
+                    if (CommonGlobals.BlackHoleInstance == null)
+                        new BlackHole();
+                    else
+                        CommonGlobals.BlackHoleInstance.Delete();
                 }
 
                 #region GRAVITY MODIFICATION
@@ -112,26 +108,23 @@ namespace zCubed
                     CommonGlobals.OutputValues();
             }
 
-            #region UNSTABLE LIGHT MULTIPLIER
-            /* If the light multiplier doesn't exist, do this
-            if (CommonGlobals.LightMultiplier == null)
+            // Free Camera creation and usage
+            if (CommonGlobals.CameraInstance != null)
             {
-                if (Input.GetKeyDown(KeyCode.L))
-                    new GlobalLightMultiplier();
+                CommonGlobals.CameraInstance.CameraUpdate();
+
+                // Lock these functions so they dont interfere with piloting the camera
+                if (CommonGlobals.GetInputLock() == Enums.InputLock.Normal)
+                {
+                    if (Input.GetKeyDown(KeyCode.G))
+                        CommonGlobals.SetInputLock(Enums.InputLock.CameraControl);
+                }
             }
             else
             {
-                if (CommonGlobals.GetInputLock() == Enums.InputLock.LightOffset || CommonGlobals.GetInputLock() == Enums.InputLock.Normal)
-                    if (Input.GetKeyDown(KeyCode.L))
-                        CommonGlobals.LightMultiplier.ToggleControl();
-
-                if (CommonGlobals.GetInputLock() == Enums.InputLock.LightOffset)
-                {
-                    if (Input.GetKeyDown(KeyCode.D))
-                        CommonGlobals.LightMultiplier.DestroyAllStaticLights();
-                }
-            }*/
-            #endregion
+                if (Input.GetKeyDown(KeyCode.G))
+                    new FreeCamera();
+            }
         }
         #endregion
     }

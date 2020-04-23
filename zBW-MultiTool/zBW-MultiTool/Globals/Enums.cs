@@ -6,7 +6,9 @@
         public enum InputLock
         {
             Normal = 0,
-            CameraControl = 1
+            CameraControl = 1,
+            Fun = 2,
+            Tools = 3
         }
 
         public static string[] FormalName_InputLock = new string[]
