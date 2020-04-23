@@ -18,7 +18,8 @@ prevent control conflicts.
 * FIXED - Time Scale broke ingame Time Controls.
 * FIXED - Camera LookAt().
 * FIXED - Performance Issues, the mod had some functions that were misbehaving, or were hogging resources.
-* MORE BEING ADDED!
+* FIXED - Camera Control Lock getting stuck
+* ADDED - Black Hole (Wildly high values, have fun)
 
 **Feature List**  
 * Gravity Modifier  
@@ -60,6 +61,7 @@ allowing for other modders to locate Components or GameObjects they want to modi
 * Y = Toggle Speed Multiplier Scaler (Change with Scroll Wheel)
 * Tab = Output current value being modified (Will be changed later for a GUI)
 * Mouse = Rotate Camera
+* E = Return to Normal Input Mode
 
 **Known Issues**
 * Zero Gravity will break the game, spawn AI before entering Zero Gravity, when they disappear, keep Zero Gravity enabled and reload the scene.  
