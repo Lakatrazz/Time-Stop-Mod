@@ -14,8 +14,9 @@ namespace zCubed
         #region APPLICATION START METHOD
         public override void OnApplicationStart()
         {
-            MelonModLogger.Log("zBW-Tools is a multi-tool mod, be warned it is buggy.");
+            MelonModLogger.Log("zBW-Tools is a multi-tool mod.");
             MelonModLogger.Log("Report any issues to the GitHub page or Boneworks Discord Server.");
+            FileGlobals.VerifyDataPath();
         }
         #endregion
 
@@ -61,6 +62,10 @@ namespace zCubed
                 // List all findable id's in the current scene
                 if (Input.GetKeyDown(KeyCode.Insert))
                     RecursiveFunctions.SceneList("$ID_FINDER");
+
+                // List all findable id's in the AssetDatabase
+                if (Input.GetKeyDown(KeyCode.End))
+                    ObjectIDLogger.OutputEntireAssetDatabase();
 
                 // Spawn or delete the gravity cube
                 if (Input.GetKeyDown(KeyCode.C))
