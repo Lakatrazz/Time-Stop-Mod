@@ -3,6 +3,7 @@ using MelonLoader;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnhollowerBaseLib;
+using zCubed.Globals;
 
 namespace zCubed.Tools
 {

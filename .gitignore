@@ -1,6 +1,6 @@
-﻿################################################################################
+################################################################################
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
 
-/zBW-MultiTool/.vs/zBW-MultiTool/v15/Server/sqlite3
+zBW-MultiTool/.vs/zBW-MultiTool/v15/Server/sqlite3
 zBW-MultiTool/.vs/zBW-MultiTool/v15/.suo

@@ -40,41 +40,22 @@ namespace zCubed
             else
                 CommonGlobals.GravCubeInstance.SetGravity();
             #endregion
-
-            #region TIME APPLICATION
-            TimeModifier.RefreshTimeMod();
-            #endregion
         }
         #endregion
 
         #region ON UPDATE METHOD
         public override void OnUpdate()
         {
-            // Free Camera Methods
+            // Free Camera creation and usage
             if (CommonGlobals.CameraInstance != null)
             {
-                // If piloting, call the pilot function
-                if (CommonGlobals.CameraInstance.isPiloting)
-                    CommonGlobals.CameraInstance.PilotCamera();
-
-                // If following, call the follow function
-                if (CommonGlobals.CameraInstance.isFollowing)
-                    CommonGlobals.CameraInstance.LookAtTarget();
-
-                // Toggle piloting
-                if (Input.GetKeyDown(KeyCode.H))
-                    CommonGlobals.CameraInstance.TogglePilot();
+                CommonGlobals.CameraInstance.CameraUpdate();
 
                 // Lock these functions so they dont interfere with piloting the camera
-                if (CommonGlobals.inputLock == Enums.InputLock.Normal)
+                if (CommonGlobals.GetInputLock() == Enums.InputLock.Normal)
                 {
-                    // Toggle following
-                    if (Input.GetKeyDown(KeyCode.F))
-                        CommonGlobals.CameraInstance.ToggleFollow();
-
-                    // Recentering
                     if (Input.GetKeyDown(KeyCode.G))
-                        CommonGlobals.CameraInstance.RecenterOnTarget();
+                        CommonGlobals.SetInputLock(Enums.InputLock.CameraControl);
                 }
             }
             else
@@ -83,8 +64,8 @@ namespace zCubed
                     new FreeCamera();
             }
             
-            // If the lock is set to normal, do these methods
-            if (CommonGlobals.inputLock == Enums.InputLock.Normal)
+            // If the lock is set to Normal, do these methods
+            if (CommonGlobals.GetInputLock() == Enums.InputLock.Normal)
             {
                 // List all things in the current scene
                 if (Input.GetKeyDown(KeyCode.Home))
@@ -130,6 +111,27 @@ namespace zCubed
                 if (Input.GetKeyDown(KeyCode.Tab))
                     CommonGlobals.OutputValues();
             }
+
+            #region UNSTABLE LIGHT MULTIPLIER
+            /* If the light multiplier doesn't exist, do this
+            if (CommonGlobals.LightMultiplier == null)
+            {
+                if (Input.GetKeyDown(KeyCode.L))
+                    new GlobalLightMultiplier();
+            }
+            else
+            {
+                if (CommonGlobals.GetInputLock() == Enums.InputLock.LightOffset || CommonGlobals.GetInputLock() == Enums.InputLock.Normal)
+                    if (Input.GetKeyDown(KeyCode.L))
+                        CommonGlobals.LightMultiplier.ToggleControl();
+
+                if (CommonGlobals.GetInputLock() == Enums.InputLock.LightOffset)
+                {
+                    if (Input.GetKeyDown(KeyCode.D))
+                        CommonGlobals.LightMultiplier.DestroyAllStaticLights();
+                }
+            }*/
+            #endregion
         }
         #endregion
     }

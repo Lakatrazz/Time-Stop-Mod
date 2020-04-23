@@ -1,18 +1,22 @@
 ﻿using MelonLoader;
-using zCubed.Features; 
+using zCubed.Features;
+using UnityEngine;
+using System.Collections.Generic;
 
 namespace zCubed.Globals
 {
     public static class CommonGlobals
     {
-        public static Enums.InputLock inputLock = Enums.InputLock.Normal;
+        static Enums.InputLock inputLock = Enums.InputLock.Normal;
 
         public static string SceneName = "";
 
+        // Values
         public static float oldGravityScale = -9.8f;
         public static float GravityScale = -9.8f;
         public static float TimeScale = 1f;
 
+        // Instances of features
         public static FreeCamera CameraInstance = null;
         public static GravityCube GravCubeInstance = null;
 
@@ -48,6 +52,14 @@ namespace zCubed.Globals
 
             MelonModLogger.Log(GravCubeInstance == null ? "Instance: Grav Cube not spawned" : "Instance: Grav Cube spawned");
             MelonModLogger.Log(CameraInstance == null ? "Instance: Free Camera not spawned" : "Instance: Free Camera spawned");
+        }
+
+        public static Enums.InputLock GetInputLock() { return inputLock; }
+
+        public static void SetInputLock(Enums.InputLock targetLock)
+        {
+            MelonModLogger.Log("Input Lock: Switched to " + Enums.FormalName_InputLock[(int)targetLock]);
+            inputLock = targetLock;
         }
     }
 }

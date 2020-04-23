@@ -9,10 +9,7 @@
 
 **Update v1.2.2**
 * ADDED - Instance ID Finder, allows for people to find Instance IDs so they can precache prefabs and other game content.
-* ADDED - Instance ID Finder Keybind.
-
-**Update v1.2.2 PATCH 1**
-* FIXED - Free Camera was broken, reported to not be looking at the player. The issued patch should resolve the issue.
+* ADDED - Instanced ID Keybind.
 
 **Feature List**  
 * Gravity Modifier  
