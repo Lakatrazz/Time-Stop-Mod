@@ -60,10 +60,10 @@ namespace zCubed.Features
                     for (int o = 0; o <= Objects.Count - 1; o++)
                     {
                         Rigidbody TargetRB = Objects[o].GetComponent<Rigidbody>();
-                        Vector3 direction = Objects[o].transform.position - Orb.transform.position;
+                        Vector3 direction = Orb.transform.position - Objects[o].transform.position;
 
                         if (TargetRB)
-                            TargetRB.AddForce(direction * 30);
+                            TargetRB.AddForce(direction.normalized * 30);
                     }
                 }
             }
