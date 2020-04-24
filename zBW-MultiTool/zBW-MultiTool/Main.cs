@@ -14,7 +14,7 @@ namespace zCubed
         #region APPLICATION START METHOD
         public override void OnApplicationStart()
         {
-            MelonModLogger.Log("zBW-Tools is a multi-tool mod.");
+            MelonModLogger.Log("zBW-Tool is a multi-tool mod.");
             MelonModLogger.Log("Report any issues to the GitHub page or Boneworks Discord Server.");
             FileGlobals.VerifyDataPath();           
         }

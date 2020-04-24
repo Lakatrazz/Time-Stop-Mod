@@ -8,7 +8,7 @@ namespace zCubed
 {
     public static class BuildInfo
     {
-        public const string Name = "Multi-Tool"; // Name of the Mod.  (MUST BE SET)
+        public const string Name = "zBW-Tool"; // Name of the Mod.  (MUST BE SET)
         public const string Author = "zCubed"; // Author of the Mod.  (Set as null if none)
         public const string Company = null; // Company that made the Mod.  (Set as null if none)
         public const string Version = "1.3.0"; // Version of the Mod.  (MUST BE SET)
