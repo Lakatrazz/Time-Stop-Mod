@@ -24,7 +24,7 @@ namespace zCubed.Tools
             {
                 if (meshRenderers[r])
                 {
-                    for (int m = 0; m <= meshRenderers[r].materials.Count; m++)
+                    for (int m = 0; m <= meshRenderers[r].materials.Count - 1; m++)
                         skinnedRenderers[r].materials[m] = whiteMaterial;
                 }
             }
@@ -33,7 +33,7 @@ namespace zCubed.Tools
             {
                 if (skinnedRenderers[s])
                 {
-                    for (int m = 0; m <= skinnedRenderers[s].materials.Count; m++)
+                    for (int m = 0; m <= skinnedRenderers[s].materials.Count - 1; m++)
                         skinnedRenderers[s].materials[m] = whiteMaterial;
                 }
             }
