@@ -10,21 +10,24 @@ namespace zCubed.Tools
     {
         public static void OutputEntireAssetDatabase()
         {
-            const int targetNumber = 30000;
-            string[] foundRegisters = new string[targetNumber];
+            const int targetNumber = 1000000;
+            string[] foundRegisters = new string[targetNumber / 2];
 
             MelonModLogger.Log("Asset Database: Listing all object instance IDs");
 
+            int s = 0;
             for (int o = 2; o <= targetNumber - 1; o += 2)
             {
                 Object testObject = Object.FindObjectFromInstanceID(o);
-                
+
                 // Screw switch statements, they didn't work...
+                // Is cast statements, didn't work...
 
                 if (testObject)
                 {
+                    Resources.fin
                     System.Type testType = testObject.GetType();
-                    foundRegisters[o] = "[ID " + o.ToString() + "]: ";
+                    foundRegisters[s] = "[ID " + o.ToString() + "]: ";
 
                     GameObject gameObject_cast = testObject.TryCast<GameObject>();
                     AudioClip audioClip_cast = testObject.TryCast<AudioClip>();
@@ -38,35 +41,39 @@ namespace zCubed.Tools
                     Texture2D texture2d_cast = testObject.TryCast<Texture2D>();
                     Texture3D texture3d_cast = testObject.TryCast<Texture3D>();
                     RenderSettings renderSettings_cast = testObject.TryCast<RenderSettings>();
+                    AnimationClip animationClip_cast = testObject.TryCast<AnimationClip>();
 
                     if (gameObject_cast)
-                        foundRegisters[o] += "[GameObject] " + gameObject_cast.name;
+                        foundRegisters[s] += "[GameObject] " + gameObject_cast.name;
                     else if (audioClip_cast)
-                        foundRegisters[o] += "[AudioClip] " + testObject.name;
+                        foundRegisters[s] += "[AudioClip] " + testObject.name;
                     else if (videoClip_cast)
-                        foundRegisters[o] += "[VideoClip] " + testObject.name;
+                        foundRegisters[s] += "[VideoClip] " + testObject.name;
                     else if (shader_cast)
-                        foundRegisters[o] += "[Shader] " + testObject.name;
+                        foundRegisters[s] += "[Shader] " + testObject.name;
                     else if (textAsset_cast)
-                        foundRegisters[o] += "[Text Asset] " + testObject.name;
+                        foundRegisters[s] += "[Text Asset] " + testObject.name;
                     else if (material_cast)
-                        foundRegisters[o] += "[Material] " + testObject.name;
+                        foundRegisters[s] += "[Material] " + testObject.name;
                     else if (behaviour_cast)
-                        foundRegisters[o] += "[MonoBehaviour] " + testObject.name;
+                        foundRegisters[s] += "[MonoBehaviour] " + testObject.name;
                     else if (scriptableObject_cast)
-                        foundRegisters[o] += "[ScriptableObject] " + testObject.name;
+                        foundRegisters[s] += "[ScriptableObject] " + testObject.name;
                     else if (mesh_cast)
-                        foundRegisters[o] += "[Mesh] " + testObject.name;
+                        foundRegisters[s] += "[Mesh] " + testObject.name;
                     else if (texture2d_cast)
-                        foundRegisters[o] += "[Texture2D] " + testObject.name;
+                        foundRegisters[s] += "[Texture2D] " + testObject.name;
                     else if (texture3d_cast)
-                        foundRegisters[o] += "[Texture3D] " + testObject.name;
+                        foundRegisters[s] += "[Texture3D] " + testObject.name;
                     else if (renderSettings_cast)
-                        foundRegisters[o] += "[RenderSettings] " + testObject.name;
+                        foundRegisters[s] += "[RenderSettings] " + testObject.name;
+                    else if (audioClip_cast)
+                        foundRegisters[s] += "[AudioClip] " + testObject.name;
                     else
-                        foundRegisters[o] += "[Null or Unknown] " + testObject.name;
+                        foundRegisters[s] += "[Null or Unknown] " + testObject.name;
 
-                    foundRegisters[o] += "\n";
+                    foundRegisters[s] += "\n";
+                    s++;
                 }
             }
 
