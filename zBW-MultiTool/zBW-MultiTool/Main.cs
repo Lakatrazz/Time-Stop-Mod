@@ -67,6 +67,10 @@ namespace zCubed
                 if (Input.GetKeyDown(KeyCode.End))
                     ObjectIDLogger.OutputEntireAssetDatabase();
 
+                // Strip the entire scene of materials
+                if (Input.GetKeyDown(KeyCode.Delete))
+                    MaterialStripper.StripMaterials();
+
                 // Spawn or delete the gravity cube
                 if (Input.GetKeyDown(KeyCode.C))
                 {
@@ -102,6 +106,14 @@ namespace zCubed
 
                 if (Input.GetKeyDown(KeyCode.S))
                     TimeModifier.DecrementTimeMod();
+                #endregion
+
+                #region LIGHT MODIFICATION
+                if (Input.GetKeyDown(KeyCode.Z))
+                    GlobalLightModifier.IncrementMod();
+
+                if (Input.GetKeyDown(KeyCode.X))
+                    GlobalLightModifier.DecrementMod();
                 #endregion
 
                 // Reset the values

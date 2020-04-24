@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿using UnhollowerBaseLib;
+using UnityEngine;
+using UnityEngine.Rendering.PostProcessing;
+using System.Reflection;
 using MelonLoader;
 using zCubed.Globals;
 
@@ -12,9 +15,12 @@ namespace zCubed.Features
         Transform CameraTransform = null;
         Transform CameraAnchor = null;
 
+        MeshRenderer CameraMesh = null;
+
         public bool isPiloting = false;
         public bool isFollowing = false;
         public bool isThirdPerson = false;
+        public bool isFirstPerson = false;
 
         bool isManipulatingSpeed = false;
         bool isManipulatingFOV = false;
@@ -22,13 +28,15 @@ namespace zCubed.Features
         float FOV = 70f;
         float SpeedMultiplier = 8f;
 
+        int axisValue = 0;
         Enums.Axes MovingAxis = Enums.Axes.Null;
 
         float xOffset = 0.65f;
         float yOffset = 0.6f;
         float zOffset = -1.5f;
 
-        int axisValue = 0;
+        bool isPostProcessingEnabled = true;
+        bool isPostProcessingPlayerEnabled = false;
 
         // Constructor
         public FreeCamera()
@@ -47,6 +55,8 @@ namespace zCubed.Features
                         GoProCube.transform.position = RecursiveGlobals.lastFound.transform.position;
                         GoProCube.transform.localScale = Vector3.one / 10f;
                         GoProCube.name = "Free Camera";
+
+                        CameraMesh = GoProCube.GetComponent<MeshRenderer>();
 
                         PlayerHead = RecursiveGlobals.lastFound.transform.root.transform.Find("[PhysicsRig]").Find("Head").Find("offset");
 
@@ -78,7 +88,7 @@ namespace zCubed.Features
         }
 
         // Recenters the camera on its target
-        public void RecenterOnTarget()
+        void RecenterOnTarget()
         {
             if (CameraTransform)
             {
@@ -215,6 +225,13 @@ namespace zCubed.Features
                         CameraComponent.orthographic = !CameraComponent.orthographic;
                     }
 
+
+                    if (Input.GetKeyDown(KeyCode.P))
+                        TogglePostProcessing();
+
+                    if (Input.GetKeyDown(KeyCode.L) && !isPostProcessingPlayerEnabled)
+                        EnablePlayerPostProcessing();
+
                     // Output the current Speed and FOV
                     if (Input.GetKeyDown(KeyCode.Tab))
                     {
@@ -287,6 +304,15 @@ namespace zCubed.Features
             isThirdPerson = true;
         }
 
+        // Enable Head Camera
+        public void EnableFirstPerson()
+        {
+            if (CameraMesh)
+                CameraMesh.enabled = false;
+
+            isFirstPerson = true;
+        }
+
         // Enable Modifiers
         public void EnableModFOV()
         {
@@ -302,12 +328,68 @@ namespace zCubed.Features
             MelonModLogger.Log("Free Camera: Scrolling will now change speed");
         }
 
+        // Toggle Post Processing
+        public void TogglePostProcessing()
+        {
+            PostProcessLayer postLayer = CameraComponent.GetComponent<PostProcessLayer>();
+            PostProcessVolume postVolume = CameraComponent.GetComponent<PostProcessVolume>();
+
+            isPostProcessingEnabled = !isPostProcessingEnabled;
+
+            if (postLayer)
+                postLayer.enabled = isPostProcessingEnabled;
+
+            if (postVolume)
+                postVolume.enabled = isPostProcessingEnabled;
+
+            string state = isPostProcessingEnabled ? "On" : "Off";
+
+            MelonModLogger.Log("Free Camera: Post Processing " + state);
+        }
+
+        public void EnablePlayerPostProcessing()
+        {
+            if (Camera.main)
+            {
+                PostProcessLayer camLayer = CameraComponent.GetComponent<PostProcessLayer>();
+                PostProcessVolume camVolume = CameraComponent.GetComponent<PostProcessVolume>();
+
+                Il2CppReferenceArray<ValveCamera> HMDCameras = Object.FindObjectsOfType<ValveCamera>();
+
+                for (int c = 0; c <= HMDCameras.Length - 1; c++)
+                {
+                    PostProcessLayer newLayer = HMDCameras[c].gameObject.AddComponent<PostProcessLayer>();
+                    PostProcessVolume newVolume = HMDCameras[c].gameObject.AddComponent<PostProcessVolume>();
+
+                    newVolume.weight = camVolume.weight;
+                    newVolume.profile = camVolume.profile;
+                    newVolume.priority = camVolume.priority;
+                    newVolume.sharedProfile = camVolume.sharedProfile;
+                    newVolume.isGlobal = true;
+
+                    newLayer.gameObject.layer = camLayer.volumeLayer;
+                    newLayer.volumeLayer = camLayer.volumeLayer;
+                    newLayer.volumeTrigger = newLayer.transform;
+
+                    newLayer.enabled = true;
+                    newVolume.enabled = true;
+                }
+
+                isPostProcessingPlayerEnabled = true;
+                MelonModLogger.Log("Free Camera: Added Player PostProcessing");
+            }
+        }
+
         // General function for resetting all bools
         void ResetState()
         {
             isPiloting = false;
             isFollowing = false;
             isThirdPerson = false;
+            isFirstPerson = false;
+
+            if (CameraMesh)
+                CameraMesh.enabled = true;
         }
     }
 }

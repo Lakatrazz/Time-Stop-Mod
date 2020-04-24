@@ -15,6 +15,7 @@ namespace zCubed.Globals
         public static float oldGravityScale = -9.8f;
         public static float GravityScale = -9.8f;
         public static float TimeScale = 1f;
+        public static float LightOffset = 0f;
 
         // Instances of features
         public static FreeCamera CameraInstance = null;
@@ -41,6 +42,7 @@ namespace zCubed.Globals
             oldGravityScale = -9.8f;
             GravityScale = -9.8f;
             TimeScale = 1f;
+            LightOffset = 0f;
 
             TimeModifier.RefreshTimeMod();
         }

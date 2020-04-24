@@ -25,7 +25,6 @@ namespace zCubed.Tools
 
                 if (testObject)
                 {
-                    Resources.fin
                     System.Type testType = testObject.GetType();
                     foundRegisters[s] = "[ID " + o.ToString() + "]: ";
 
