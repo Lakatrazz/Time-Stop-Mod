@@ -16,7 +16,7 @@ namespace zCubed
         {
             MelonModLogger.Log("zBW-Tools is a multi-tool mod.");
             MelonModLogger.Log("Report any issues to the GitHub page or Boneworks Discord Server.");
-            FileGlobals.VerifyDataPath();
+            FileGlobals.VerifyDataPath();           
         }
         #endregion
 
@@ -28,6 +28,17 @@ namespace zCubed
 
             // Call this to output the loaded scene
             SceneLoadLogger.OnLoad();
+
+            // Call this to search for any needed to be cached content
+            InstanceGlobals.AttemptToCacheAssets();
+        }
+        #endregion
+
+        #region ON LEVEL LOAD METHOD
+        public override void OnLevelWasLoaded(int level)
+        {
+            // Call this to search for any needed to be cached content
+            InstanceGlobals.AttemptToCacheAssets();
         }
         #endregion
 

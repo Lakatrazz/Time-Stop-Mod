@@ -14,27 +14,37 @@ namespace zCubed.Tools
             Material whiteMaterial = tempMaterialObj.GetComponent<MeshRenderer>().material;
 
             whiteMaterial.color = Color.white;
+            whiteMaterial.mainTexture = null;
 
             GameObject.Destroy(tempMaterialObj);
 
             Il2CppReferenceArray<MeshRenderer> meshRenderers = Object.FindObjectsOfType<MeshRenderer>();
-            Il2CppReferenceArray<MeshRenderer> skinnedRenderers = Object.FindObjectsOfType<MeshRenderer>();
+            Il2CppReferenceArray<SkinnedMeshRenderer> skinnedRenderers = Object.FindObjectsOfType<SkinnedMeshRenderer>();
 
-            for (int r = 0; r <= meshRenderers.Length - 1; r++)
+            for (int r = 0; r < meshRenderers.Length; r++)
             {
                 if (meshRenderers[r])
                 {
-                    for (int m = 0; m <= meshRenderers[r].materials.Count - 1; m++)
-                        skinnedRenderers[r].materials[m] = whiteMaterial;
+                    meshRenderers[r].material = whiteMaterial;
+
+                    for (int m = 0; m < meshRenderers[r].materials.Count; m++)
+                        meshRenderers[r].materials[m] = whiteMaterial;
                 }
             }
 
-            for (int s = 0; s <= skinnedRenderers.Length - 1; s++)
+            for (int s = 0; s < skinnedRenderers.Length; s++)
             {
                 if (skinnedRenderers[s])
                 {
-                    for (int m = 0; m <= skinnedRenderers[s].materials.Count - 1; m++)
+                    MelonModLogger.Log(skinnedRenderers[s].transform.name);
+                    skinnedRenderers[s].material = whiteMaterial;
+                    skinnedRenderers[s].sharedMaterial = whiteMaterial;
+
+                    for (int m = 0; m < skinnedRenderers[s].materials.Count; m++)
                         skinnedRenderers[s].materials[m] = whiteMaterial;
+
+                    for (int sm = 0; sm < skinnedRenderers[s].sharedMaterials.Count; sm++)
+                        skinnedRenderers[s].sharedMaterials[sm] = whiteMaterial;
                 }
             }
 

@@ -15,6 +15,9 @@ namespace zCubed.Features
         Transform CameraTransform = null;
         Transform CameraAnchor = null;
 
+        GameObject HoloHead = null;
+        Il2CppReferenceArray<MeshRenderer> HoloRenderers = null;
+
         MeshRenderer CameraMesh = null;
 
         public bool isPiloting = false;
@@ -36,7 +39,7 @@ namespace zCubed.Features
         float zOffset = -1.5f;
 
         bool isPostProcessingEnabled = true;
-        bool isPostProcessingPlayerEnabled = false;
+        bool isHoloHeadEnabled = true;
 
         // Constructor
         public FreeCamera()
@@ -78,6 +81,20 @@ namespace zCubed.Features
                         CameraTransform = GoProCube.transform;
                         CameraComponent = RecursiveGlobals.lastFound.GetComponent<Camera>();
                         CameraComponent.transform.localEulerAngles = Vector3.zero;
+
+                        InstanceGlobals.AttemptToCacheAssets();
+                        if (InstanceGlobals.holoHead)
+                        {
+                            HoloHead = GameObject.Instantiate(InstanceGlobals.holoHead);
+
+                            HoloHead.transform.parent = PlayerHead;
+                            HoloHead.transform.localPosition = Vector3.zero;
+                            HoloHead.transform.localScale = Vector3.one;
+                            HoloHead.transform.localRotation = Quaternion.identity;
+
+                            HoloHead.transform.Find("geoGrp").transform.localPosition = Vector3.up * -1.65f;
+                            HoloHead.transform.Find("SHJntGrp").transform.localPosition = Vector3.up * -1.65f;
+                        }
 
                         CommonGlobals.CameraInstance = this;
                     }
@@ -225,12 +242,11 @@ namespace zCubed.Features
                         CameraComponent.orthographic = !CameraComponent.orthographic;
                     }
 
-
                     if (Input.GetKeyDown(KeyCode.P))
                         TogglePostProcessing();
 
-                    if (Input.GetKeyDown(KeyCode.L) && !isPostProcessingPlayerEnabled)
-                        EnablePlayerPostProcessing();
+                    if (Input.GetKeyDown(KeyCode.L))
+                        ToggleHoloHead();
 
                     // Output the current Speed and FOV
                     if (Input.GetKeyDown(KeyCode.Tab))
@@ -347,37 +363,19 @@ namespace zCubed.Features
             MelonModLogger.Log("Free Camera: Post Processing " + state);
         }
 
-        public void EnablePlayerPostProcessing()
+        // Toggle the HoloHead's visibility
+        public void ToggleHoloHead()
         {
-            if (Camera.main)
+            /*
+            if (HoloRenderers != null)
             {
-                PostProcessLayer camLayer = CameraComponent.GetComponent<PostProcessLayer>();
-                PostProcessVolume camVolume = CameraComponent.GetComponent<PostProcessVolume>();
+                isHoloHeadEnabled = !isHoloHeadEnabled;
 
-                Il2CppReferenceArray<ValveCamera> HMDCameras = Object.FindObjectsOfType<ValveCamera>();
-
-                for (int c = 0; c <= HMDCameras.Length - 1; c++)
+                for (int r = 0; r < HoloRenderers.Length; r++)
                 {
-                    PostProcessLayer newLayer = HMDCameras[c].gameObject.AddComponent<PostProcessLayer>();
-                    PostProcessVolume newVolume = HMDCameras[c].gameObject.AddComponent<PostProcessVolume>();
-
-                    newVolume.weight = camVolume.weight;
-                    newVolume.profile = camVolume.profile;
-                    newVolume.priority = camVolume.priority;
-                    newVolume.sharedProfile = camVolume.sharedProfile;
-                    newVolume.isGlobal = true;
-
-                    newLayer.gameObject.layer = camLayer.volumeLayer;
-                    newLayer.volumeLayer = camLayer.volumeLayer;
-                    newLayer.volumeTrigger = newLayer.transform;
-
-                    newLayer.enabled = true;
-                    newVolume.enabled = true;
+                    HoloRenderers[r].enabled = isHoloHeadEnabled;
                 }
-
-                isPostProcessingPlayerEnabled = true;
-                MelonModLogger.Log("Free Camera: Added Player PostProcessing");
-            }
+            }*/
         }
 
         // General function for resetting all bools
