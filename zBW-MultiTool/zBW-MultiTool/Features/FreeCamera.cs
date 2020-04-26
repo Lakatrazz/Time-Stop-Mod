@@ -187,9 +187,7 @@ namespace zCubed.Features
 
                     // Extras
                     if (Input.GetKeyDown(KeyCode.O))
-                    {
                         CameraComponent.orthographic = !CameraComponent.orthographic;
-                    }
 
                     if (Input.GetKeyDown(KeyCode.P))
                         TogglePostProcessing();
