@@ -20,6 +20,14 @@ prevent control conflicts.
 * FIXED - Performance Issues, the mod had some functions that were misbehaving, or were hogging resources.
 * FIXED - Camera Control Lock getting stuck
 * ADDED - Black Hole (Wildly high values, have fun)
+* ADDED - Free Camera Third Person
+* ADDED - Control Documentation Ingame
+* ADDED - HoloHead for the player
+* ADDED - File System
+* ADDED - AssetDatabase Object Instance ID Lister
+* ADDED - Scene Object Instance ID Lister
+* ADDED - Material Stripper
+* ADDED - Global Light Modifier
 
 **Feature List**  
 * Gravity Modifier  
@@ -35,33 +43,43 @@ allowing for other modders to locate Components or GameObjects they want to modi
 * It's up to you if you count this as a feature, but this mod is open source! Add onto it and submit a pull request and I may add it to the mod! 
 
 **Normal Controls**  
-* Q = Increment Gravity  
-* W = Decrement Gravity  
-* A = Increment TimeScale  
-* D = Decrement TimeScale  
-* 0 (Zero) = Zero Gravity Toggle  
-* C = Gravity Cube spawn and despawn  
-* G = Spawn Free Camera / Take control of camera
-* R = Reset Gravity and TimeScale  
-* Tab = Output Gravity and TimeScale
-* Insert = Output all Object IDs in the entire scene
-* Home = Output all Scene Objects and Components in the entire scene
+* G = Spawn Camera / Take Control of Camera
+* F = Fun Controls
+* T = Tool Controls
 
 **Camera Mode Controls**  
-* W & S = Forward and Back (Piloting) 
-* A & D = Left and Right (Piloting) 
-* C & V = Up and Down (Piloting) 
-* O = Orthographic mode
+* E = Exit Mode
+* F = Face Player Mode
+* T = Third Person
 * H = Pilot Mode
-* F = Follow Mode
-* T = Third Person Mode
-* B = Cycle Camera Offset Axis (Third Person Mode)
-* Scroll Wheel = Offset Active Axis (Third Person Mode)
-* R = Toggle FOV Modifier (Change with Scroll Wheel)  
-* Y = Toggle Speed Multiplier Scaler (Change with Scroll Wheel)
-* Tab = Output current value being modified (Will be changed later for a GUI)
-* Mouse = Rotate Camera
+* J = First Person
+* G = Recenter On Player
+* L = Toggle HoloHead Visibility
+* R = Toggle FOV Modifier
+* Y = Toggle Speed Modifier
+* WS = Pilot Mode Forward / Back
+* AD = Pilot Mode Left / Right
+* Scroll Wheel = Offset Active Modifier
+* M = List Modifiers
+* (Third Person) B = Switch Axis Offset
+
+**Fun Controls**
+* E = Exit Mode");
+* B = Black Hole Spawn / Remove
+* C = Gravity Cube Spawn / Remove
+* 0 = Toggle Zero G / Revert Gravity
+* Q / W = Incremenet / Decrement Gravity Scale
+* A / D = Increment / Decrement Time Scale
+* Z / X = Increment / Decrement Light Modifier (WIP)
+* R = Reset Values To Defaults
+* T = Output Values
+
+**Tool Controls**
 * E = Return to Normal Input Mode
+* Q = Output Object Instance IDs (Entire AssetDatabase)
+* W = Strip Scene's Materials
+* A = List Entire Scene (GameObjects, Children, and Components)
+* S = List Scene's Object Instance IDs
 
 **Known Issues**
 * Zero Gravity will break the game, spawn AI before entering Zero Gravity, when they disappear, keep Zero Gravity enabled and reload the scene.  
@@ -89,5 +107,5 @@ allowing for other modders to locate Components or GameObjects they want to modi
 
 **Crediting**
 * If you make a video for this mod, you can share it with me and I will consider adding it.
-* If you use this mod in a video, consider giving credit to the GitHub page.
+* If you use this mod in a video, make sure to give credit to the GitHub page, *cough* Oragani *cough*.
 * If you use this mod as a library for your mod, there is no need to give credit.
