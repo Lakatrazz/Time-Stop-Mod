@@ -12,7 +12,7 @@
 prevent control conflicts.
 * ADDED - Black Hole (Wildly high values, have fun).
 * ADDED - Free Camera Third Person.
-* ADDED - Control Documentation Ingame.
+* ADDED - Control Documentation In-Game, press TAB to view Controls.
 * ADDED - HoloHead for the player.
 * ADDED - File System.
 * ADDED - AssetDatabase Object Instance ID Lister.
