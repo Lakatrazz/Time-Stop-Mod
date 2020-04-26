@@ -31,8 +31,9 @@ namespace zCubed.Misc
                     MelonModLogger.Log("Controls: Y = Toggle Speed Modifier");
                     MelonModLogger.Log("Controls: WS = Pilot Mode Forward / Back");
                     MelonModLogger.Log("Controls: AD = Pilot Mode Left / Right");
-                    MelonModLogger.Log("Controls: Scroll Wheel = Modulate Active Modifier");
+                    MelonModLogger.Log("Controls: Scroll Wheel = Offset Active Modifier");
                     MelonModLogger.Log("Controls: M = List Modifiers");
+                    MelonModLogger.Log("Controls: (Third Person) B = Switch Axis Offset");
                     break;
 
                 case Enums.InputLock.Fun:
@@ -44,7 +45,7 @@ namespace zCubed.Misc
                     MelonModLogger.Log("Controls: A / D = Increment / Decrement Time Scale");
                     MelonModLogger.Log("Controls: Z / X = Increment / Decrement Light Modifier (WIP)");
                     MelonModLogger.Log("Controls: R = Reset Values To Defaults");
-                    MelonModLogger.Log("Controls: E = Output Values");
+                    MelonModLogger.Log("Controls: T = Output Values");
                     break;
 
                 case Enums.InputLock.Tools:
@@ -52,7 +53,7 @@ namespace zCubed.Misc
                     MelonModLogger.Log("Controls: Q = Output Object Instance IDs (Entire AssetDatabase)");
                     MelonModLogger.Log("Controls: W = Strip Scene's Materials");
                     MelonModLogger.Log("Controls: A = List Entire Scene (GameObjects, Children, and Components)");
-                    MelonModLogger.Log("Controls: D = Exit Mode");
+                    MelonModLogger.Log("Controls: S = List Scene's Object Instance IDs");
                     break;
             }
         }

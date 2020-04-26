@@ -127,7 +127,7 @@ namespace zCubed
                     CommonGlobals.DefaultValues();
 
                 // Output the values
-                if (Input.GetKeyDown(KeyCode.E))
+                if (Input.GetKeyDown(KeyCode.T))
                     CommonGlobals.OutputValues();
             }
 

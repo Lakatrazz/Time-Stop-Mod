@@ -128,6 +128,9 @@ namespace zCubed.Features
                     if (Input.GetKeyDown(KeyCode.J))
                         EnableFirstPerson();
 
+                    if (Input.GetKeyDown(KeyCode.G))
+                        RecenterOnTarget();
+
                     // Modifiers
                     if (Input.GetKeyDown(KeyCode.R))
                         EnableModFOV();
