@@ -28,7 +28,7 @@ namespace zCubed.Tools
 
                 File.WriteAllText(FileGlobals.DataPath + path + ".txt", compressedString);
 
-                MelonModLogger.Log("File System: Finished Write");
+                MelonModLogger.Log("File System: Finished Write, @" + FileGlobals.DataPath + path);
                 return true;
             }
 

@@ -7,7 +7,7 @@ namespace zCubed.Globals
 {
     public static class CommonGlobals
     {
-        static Enums.InputLock inputLock = Enums.InputLock.Normal;
+        static Enums.InputLock inputLock = Enums.InputLock.Root;
 
         public static string SceneName = "";
 
@@ -34,7 +34,7 @@ namespace zCubed.Globals
             GravCubeInstance = null;
 
             // Reset the input lock
-            inputLock = Enums.InputLock.Normal;
+            inputLock = Enums.InputLock.Root;
         }
 
         public static void DefaultValues()

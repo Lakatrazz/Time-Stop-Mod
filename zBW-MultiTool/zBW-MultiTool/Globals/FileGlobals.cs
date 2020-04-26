@@ -20,7 +20,7 @@ namespace zCubed.Globals
                 Directory.CreateDirectory(DataPath);
             }
 
-            MelonModLogger.Log("File System: Data Folder path = (" + DataPath + ")");
+            MelonModLogger.Log("File System: Data Folder path @ \"" + DataPath + "\"");
             DataPathVerified = true;
         }
 

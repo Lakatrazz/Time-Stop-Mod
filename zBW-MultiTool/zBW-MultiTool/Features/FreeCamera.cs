@@ -1,7 +1,6 @@
 ﻿using UnhollowerBaseLib;
 using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
-using System.Reflection;
 using MelonLoader;
 using zCubed.Globals;
 
@@ -16,7 +15,6 @@ namespace zCubed.Features
         Transform CameraAnchor = null;
 
         GameObject HoloHead = null;
-        Il2CppReferenceArray<MeshRenderer> HoloRenderers = null;
 
         MeshRenderer CameraMesh = null;
 
@@ -39,47 +37,50 @@ namespace zCubed.Features
         float zOffset = -1.5f;
 
         bool isPostProcessingEnabled = true;
-        bool isHoloHeadEnabled = true;
+        bool isHoloHeadEnabled = false;
 
         // Constructor
         public FreeCamera()
         {
             if (CommonGlobals.CameraInstance == null)
             {
-                Tools.RecursiveFunctions.SceneList("FollowCamera");
+                Il2CppReferenceArray<GameObject> SceneObjects = Object.FindObjectsOfType<GameObject>();
 
-                if (RecursiveGlobals.lastFound)
+                for (int o = 0; o < SceneObjects.Length; o++)
                 {
-                    if (RecursiveGlobals.lastFound.name == "FollowCamera")
+                    if (SceneObjects[o].name == "[RigManager (Default Brett)]")
                     {
-                        CameraFollowTarget = RecursiveGlobals.lastFound.transform.parent;
-
-                        GameObject GoProCube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                        GoProCube.transform.position = RecursiveGlobals.lastFound.transform.position;
-                        GoProCube.transform.localScale = Vector3.one / 10f;
-                        GoProCube.name = "Free Camera";
-
-                        CameraMesh = GoProCube.GetComponent<MeshRenderer>();
-
-                        PlayerHead = RecursiveGlobals.lastFound.transform.root.transform.Find("[PhysicsRig]").Find("Head").Find("offset");
+                        PlayerHead = SceneObjects[o].transform.Find("[PhysicsRig]").Find("Head").Find("offset");
+                        Transform PlayerCamera = SceneObjects[o].transform.Find("[SkeletonRig (GameWorld Brett)]").Find("Head").Find("FollowCamera");
 
                         if (!PlayerHead)
                             return;
 
-                        RecursiveGlobals.lastFound.transform.parent = GoProCube.transform;
-                        Component.Destroy(RecursiveGlobals.lastFound.GetComponent<VLB.Samples.FreeCameraController>());
-                        Component.Destroy(RecursiveGlobals.lastFound.GetComponent<ThirdPersonCameraController>());
-                        Component.Destroy(RecursiveGlobals.lastFound.GetComponent<ValveCamera>());
-                                            
-                        MelonModLogger.Log("Instance: Created Free Camera, press G to control it");
+                        if (!PlayerCamera)
+                            return;
+
+                        CameraFollowTarget = PlayerHead;
+
+                        GameObject FreeCube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                        FreeCube.transform.position = PlayerHead.transform.position;
+                        FreeCube.transform.localScale = Vector3.one / 10f;
+                        FreeCube.name = "Free Camera";
+                        FreeCube.GetComponent<Collider>().enabled = false;
+
+                        CameraMesh = FreeCube.GetComponent<MeshRenderer>();
+
+                        PlayerCamera.transform.parent = FreeCube.transform;
+                        Component.Destroy(PlayerCamera.GetComponent<VLB.Samples.FreeCameraController>());
+                        Component.Destroy(PlayerCamera.GetComponent<ThirdPersonCameraController>());
+                        Component.Destroy(PlayerCamera.GetComponent<ValveCamera>());
 
                         CameraAnchor = new GameObject().transform;
                         CameraAnchor.transform.parent = PlayerHead;
                         CameraAnchor.localPosition = (Vector3.right * xOffset) + (Vector3.up * yOffset) + (Vector3.forward * zOffset);
                         CameraAnchor.localEulerAngles = new Vector3(0, 0, 0);
 
-                        CameraTransform = GoProCube.transform;
-                        CameraComponent = RecursiveGlobals.lastFound.GetComponent<Camera>();
+                        CameraTransform = FreeCube.transform;
+                        CameraComponent = PlayerCamera.GetComponent<Camera>();
                         CameraComponent.transform.localEulerAngles = Vector3.zero;
 
                         InstanceGlobals.AttemptToCacheAssets();
@@ -94,68 +95,17 @@ namespace zCubed.Features
 
                             HoloHead.transform.Find("geoGrp").transform.localPosition = Vector3.up * -1.65f;
                             HoloHead.transform.Find("SHJntGrp").transform.localPosition = Vector3.up * -1.65f;
+
+                            HoloHead.active = false;
                         }
 
                         CommonGlobals.CameraInstance = this;
+                        MelonModLogger.Log("Instance: Created Free Camera, press G to control it");
                     }
                 }
             }
             else //Just in case something happens
                 MelonModLogger.LogError("Error: A FreeCamera instance already exists!");
-        }
-
-        // Recenters the camera on its target
-        void RecenterOnTarget()
-        {
-            if (CameraTransform)
-            {
-                CameraTransform.position = CameraFollowTarget.position;
-                CameraTransform.rotation = CameraFollowTarget.rotation;
-            }
-        }
-
-        // WASD + Mouse piloting
-        void PilotCamera()
-        {
-            if (CameraTransform)
-            {
-                float horizontal = Input.GetAxisRaw("Horizontal");
-                float vertical = Input.GetAxisRaw("Vertical");
-                float up = 0;
-
-                up = Input.GetKey(KeyCode.C) ? 1 : 0;
-                up = Input.GetKey(KeyCode.V) ? -1 : 0;
-
-                Vector3 forwardVec = (Vector3.forward * vertical * SpeedMultiplier) * Time.deltaTime;
-                Vector3 rightVec = (Vector3.right * horizontal * SpeedMultiplier) * Time.deltaTime;
-                Vector3 upVec = (Vector3.up * up * SpeedMultiplier) * Time.deltaTime;
-
-                CameraTransform.Translate(forwardVec + rightVec + upVec);
-
-                CameraTransform.eulerAngles = new Vector3(CameraTransform.localEulerAngles.x, CameraTransform.localEulerAngles.y, 0);
-                CameraTransform.eulerAngles += new Vector3(-Input.GetAxisRaw("Mouse Y"), Input.GetAxisRaw("Mouse X"), 0);
-            }
-        }
-
-        // Faces the camera towards the target
-        void LookAtTarget()
-        {
-            if (CameraTransform)
-            {
-                CameraComponent.transform.localEulerAngles = Vector3.zero;
-                CameraTransform.LookAt(CameraFollowTarget.position);
-            }
-        }
-
-        // Moves the camera behind the head, in a TPP fashion
-        void ThirdPerson()
-        {
-            if (CameraTransform)
-            {
-                CameraAnchor.localPosition = (Vector3.right * xOffset) + (Vector3.up * yOffset) + (Vector3.forward * zOffset);
-                CameraTransform.position = CameraAnchor.position;
-                CameraTransform.rotation = CameraAnchor.rotation;
-            }
         }
 
         // The Update function
@@ -166,13 +116,6 @@ namespace zCubed.Features
                 // Controls
                 if (CommonGlobals.GetInputLock() == Enums.InputLock.CameraControl)
                 {
-                    // Lift the lock if pressed again
-                    if (Input.GetKeyDown(KeyCode.E))
-                    {
-                        isPiloting = false;
-                        CommonGlobals.SetInputLock(Enums.InputLock.Normal);
-                    }
-
                     if (Input.GetKeyDown(KeyCode.H))
                         EnablePilot();
 
@@ -181,6 +124,9 @@ namespace zCubed.Features
 
                     if (Input.GetKeyDown(KeyCode.T))
                         EnableThirdPerson();
+
+                    if (Input.GetKeyDown(KeyCode.J))
+                        EnableFirstPerson();
 
                     // Modifiers
                     if (Input.GetKeyDown(KeyCode.R))
@@ -249,7 +195,7 @@ namespace zCubed.Features
                         ToggleHoloHead();
 
                     // Output the current Speed and FOV
-                    if (Input.GetKeyDown(KeyCode.Tab))
+                    if (Input.GetKeyDown(KeyCode.M))
                     {
                         if (isManipulatingSpeed)
                             MelonModLogger.Log("Free Camera: Modifying Speed Multiplier Value");
@@ -267,6 +213,8 @@ namespace zCubed.Features
                         MelonModLogger.Log("Free Camera: Z Offset = " + zOffset.ToString());
                     }
                 }
+                else
+                    isPiloting = false;
 
                 // Locks the cursor for piloting
                 if (isPiloting)
@@ -290,6 +238,9 @@ namespace zCubed.Features
                 if (isFollowing)
                     LookAtTarget();
 
+                if (isFirstPerson)
+                    FirstPerson();
+
                 // Sync the FOV if it is out of sync
                 if (FOV != CameraComponent.fieldOfView)
                     CameraComponent.fieldOfView = FOV;
@@ -298,6 +249,73 @@ namespace zCubed.Features
                 CommonGlobals.CameraInstance = null;
         }
 
+        #region CAMERA MODES
+        // WASD + Mouse piloting
+        void PilotCamera()
+        {
+            if (CameraTransform)
+            {
+                float horizontal = Input.GetAxisRaw("Horizontal");
+                float vertical = Input.GetAxisRaw("Vertical");
+                float up = 0;
+
+                up = Input.GetKey(KeyCode.C) ? 1 : 0;
+                up = Input.GetKey(KeyCode.V) ? -1 : 0;
+
+                Vector3 forwardVec = (Vector3.forward * vertical * SpeedMultiplier) * Time.deltaTime;
+                Vector3 rightVec = (Vector3.right * horizontal * SpeedMultiplier) * Time.deltaTime;
+                Vector3 upVec = (Vector3.up * up * SpeedMultiplier) * Time.deltaTime;
+
+                CameraTransform.Translate(forwardVec + rightVec + upVec);
+
+                CameraTransform.eulerAngles = new Vector3(CameraTransform.localEulerAngles.x, CameraTransform.localEulerAngles.y, 0);
+                CameraTransform.eulerAngles += new Vector3(-Input.GetAxisRaw("Mouse Y"), Input.GetAxisRaw("Mouse X"), 0);
+            }
+        }
+
+        // Faces the camera towards the target
+        void LookAtTarget()
+        {
+            if (CameraTransform)
+            {
+                CameraComponent.transform.localEulerAngles = Vector3.zero;
+                CameraTransform.LookAt(CameraFollowTarget.position);
+            }
+        }
+
+        // Moves the camera behind the head, in a TPP fashion
+        void ThirdPerson()
+        {
+            if (CameraTransform)
+            {
+                CameraAnchor.localPosition = (Vector3.right * xOffset) + (Vector3.up * yOffset) + (Vector3.forward * zOffset);
+                CameraTransform.position = CameraAnchor.position;
+                CameraTransform.rotation = CameraAnchor.rotation;
+            }
+        }
+
+        // Moves the camera with the player's head like normal
+        void FirstPerson()
+        {
+            if (CameraTransform)
+            {
+                CameraTransform.position = PlayerHead.position;
+                CameraTransform.rotation = PlayerHead.rotation;
+            }
+        }
+
+        // Recenters the camera on its target
+        void RecenterOnTarget()
+        {
+            if (CameraTransform)
+            {
+                CameraTransform.position = CameraFollowTarget.position;
+                CameraTransform.rotation = CameraFollowTarget.rotation;
+            }
+        }
+        #endregion
+
+        #region ENABLES
         // Enable the Pilot mode
         public void EnablePilot()
         {
@@ -328,8 +346,10 @@ namespace zCubed.Features
 
             isFirstPerson = true;
         }
+        #endregion
 
-        // Enable Modifiers
+        #region MODIFIERS
+        // FOV modifier
         public void EnableModFOV()
         {
             isManipulatingSpeed = false;
@@ -337,12 +357,14 @@ namespace zCubed.Features
             MelonModLogger.Log("Free Camera: Scrolling will now change FOV");
         }
 
+        // Speed modifier
         public void EnableModSpeed()
         {
             isManipulatingSpeed = true;
             isManipulatingFOV = false;
             MelonModLogger.Log("Free Camera: Scrolling will now change speed");
         }
+        #endregion
 
         // Toggle Post Processing
         public void TogglePostProcessing()
@@ -366,16 +388,12 @@ namespace zCubed.Features
         // Toggle the HoloHead's visibility
         public void ToggleHoloHead()
         {
-            /*
-            if (HoloRenderers != null)
+            if (HoloHead != null)
             {
                 isHoloHeadEnabled = !isHoloHeadEnabled;
 
-                for (int r = 0; r < HoloRenderers.Length; r++)
-                {
-                    HoloRenderers[r].enabled = isHoloHeadEnabled;
-                }
-            }*/
+                HoloHead.active = isHoloHeadEnabled;
+            }
         }
 
         // General function for resetting all bools
