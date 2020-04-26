@@ -34,6 +34,7 @@ allowing for other modders to locate Components or GameObjects they want to modi
 * L = Toggle HoloHead Visibility
 * R = Toggle FOV Modifier
 * Y = Toggle Speed Modifier
+* P = Toggle Post Processing
 * WS = Pilot Mode Forward / Back
 * AD = Pilot Mode Left / Right
 * Scroll Wheel = Offset Active Modifier
