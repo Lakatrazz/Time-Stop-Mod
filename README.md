@@ -3,31 +3,8 @@
 ### For unstable releases, download from the source here
 ### For stable releases, download from https://bonetome.com/mods/10 or releases tab here
 
-**Update v1.2.1**
-* The entire project has been refactored and restructured for easy modification and usage as a library.  
-* The project is now open source, anyone can help contribute via pull requests and forks!  
-
-**Update v1.2.2**
-* ADDED - Instance ID Finder, allows for people to find Instance IDs so they can precache prefabs and other game content.
-* ADDED - Instanced ID Keybind.
-
-**Update v1.3.0**
-* ADDED - Free Camera has the ability to act as a Third Person Camera.
-* ADDED - New Input System, allowing for the mod to lock controls into categorys, meaning that it is now easier to classify and 
-prevent control conflicts.
-* FIXED - Time Scale broke ingame Time Controls.
-* FIXED - Camera LookAt().
-* FIXED - Performance Issues, the mod had some functions that were misbehaving, or were hogging resources.
-* FIXED - Camera Control Lock getting stuck
-* ADDED - Black Hole (Wildly high values, have fun)
-* ADDED - Free Camera Third Person
-* ADDED - Control Documentation Ingame
-* ADDED - HoloHead for the player
-* ADDED - File System
-* ADDED - AssetDatabase Object Instance ID Lister
-* ADDED - Scene Object Instance ID Lister
-* ADDED - Material Stripper
-* ADDED - Global Light Modifier
+**Changelogs**  
+* These have been moved to a new file called CHANGELOG.md
 
 **Feature List**  
 * Gravity Modifier  
@@ -48,7 +25,7 @@ allowing for other modders to locate Components or GameObjects they want to modi
 * T = Tool Controls
 
 **Camera Mode Controls**  
-* E = Exit Mode
+* E = Return to Normal Input Mode
 * F = Face Player Mode
 * T = Third Person
 * H = Pilot Mode
@@ -64,7 +41,7 @@ allowing for other modders to locate Components or GameObjects they want to modi
 * (Third Person) B = Switch Axis Offset
 
 **Fun Controls**
-* E = Exit Mode");
+* E = Return to Normal Input Mode
 * B = Black Hole Spawn / Remove
 * C = Gravity Cube Spawn / Remove
 * 0 = Toggle Zero G / Revert Gravity
