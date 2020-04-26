@@ -21,9 +21,11 @@ prevent control conflicts.
 * ADDED - Global Light Modifier (WIP, Can't make the world pitch black yet!).
 * ADDED - File Folder (Mods/Data).
 * ADDED - Input Categories, sorry for the change but it was needed to fix control conflicts.
+* ADDED - Caching System for needed GameObjects, Models, and Textures.
 * FIXED - Time Scale broke ingame Time Controls.
 * FIXED - Camera LookAt().
 * FIXED - Performance Issues, the mod had some functions that were misbehaving, or were hogging resources.
 * FIXED - Camera Control Lock getting stuck.
 * FIXED - Free Camera not working inside Central Station (Thanks to Adi for reporting this issue).
-* CHANGED - Free Camera search is now more aggressive and will simply quit if it can't find the player.
+* CHANGED - Free Camera search is now more aggressive, it will freeze the game for a bit so wait... If it can't find the player it will quit looking.
+* CHANGED - Mod performance should be better because of minor optimizations
