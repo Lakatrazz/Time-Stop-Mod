@@ -8,7 +8,7 @@
 
 **Update v1.3.0**
 * ADDED - Free Camera has the ability to act as a Third Person Camera.
-* ADDED - New Input System, allowing for the mod to lock controls into categorys, meaning that it is now easier to classify and 
+* ADDED - New Input System, allowing for the mod to lock controls into categories, meaning that it is now easier to classify and 
 prevent control conflicts.
 * ADDED - Black Hole (Wildly high values, have fun).
 * ADDED - Free Camera Third Person.
@@ -22,10 +22,16 @@ prevent control conflicts.
 * ADDED - File Folder (Mods/Data).
 * ADDED - Input Categories, sorry for the change but it was needed to fix control conflicts.
 * ADDED - Caching System for needed GameObjects, Models, and Textures.
+* ADDED - Camera Recentering.
+* ADDED - TurnTable for filming Asset Mods (Spawns in front of your face, so look at the ground for it to spawn nearby)
+* ADDED - TurnTable Camera (Mode of FreeCamera)
+* ADDED - Green Screen
+* ADDED - Camera Physics Toggle, allowing for you to interact with the Camera using Gravity Plates / Cups
 * FIXED - Time Scale broke ingame Time Controls.
 * FIXED - Camera LookAt().
 * FIXED - Performance Issues, the mod had some functions that were misbehaving, or were hogging resources.
 * FIXED - Camera Control Lock getting stuck.
 * FIXED - Free Camera not working inside Central Station (Thanks to Adi for reporting this issue).
 * CHANGED - Free Camera search is now more aggressive, it will freeze the game for a bit so wait... If it can't find the player it will quit looking.
-* CHANGED - Mod performance should be better because of minor optimizations
+* CHANGED - Mod performance should be better because of optimizations
+* Possibly more that were forgotten about...
