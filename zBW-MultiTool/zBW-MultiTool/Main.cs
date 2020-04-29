@@ -1,5 +1,4 @@
-﻿using System;
-using MelonLoader;
+﻿using MelonLoader;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnhollowerBaseLib;
@@ -14,8 +13,10 @@ namespace zCubed
         #region APPLICATION START METHOD
         public override void OnApplicationStart()
         {
-            MelonModLogger.Log("zBW-Tools is a multi-tool mod, be warned it is buggy.");
+            MelonModLogger.Log("zBW-Tool is a multi-tool mod.");
             MelonModLogger.Log("Report any issues to the GitHub page or Boneworks Discord Server.");
+            MelonModLogger.Log("Press TAB to list the current Input Mode's controls.");
+            FileGlobals.VerifyDataPath();
         }
         #endregion
 
@@ -27,6 +28,9 @@ namespace zCubed
 
             // Call this to output the loaded scene
             SceneLoadLogger.OnLoad();
+
+            // Call this to search for any needed to be cached content
+            InstanceGlobals.AttemptToCacheAssets();
         }
         #endregion
 
@@ -41,8 +45,9 @@ namespace zCubed
                 CommonGlobals.GravCubeInstance.SetGravity();
             #endregion
 
-            #region TIME APPLICATION
-            TimeModifier.RefreshTimeMod();
+            #region BLACK HOLE
+            if (CommonGlobals.BlackHoleInstance != null)
+                CommonGlobals.BlackHoleInstance.Update();
             #endregion
         }
         #endregion
@@ -50,50 +55,35 @@ namespace zCubed
         #region ON UPDATE METHOD
         public override void OnUpdate()
         {
-            // Free Camera Methods
-            if (CommonGlobals.CameraInstance != null)
+            // If the lock is not Normal, allow the user to exit back to normal mode by pressing E
+            if (CommonGlobals.GetInputLock() != Enums.InputLock.Root && Input.GetKeyDown(KeyCode.E))
+                CommonGlobals.SetInputLock(Enums.InputLock.Root);
+
+            // List the controls
+            if (Input.GetKeyDown(KeyCode.Tab))
+                Misc.ControlDocumentation.ListCurrentControls();
+
+            // If the lock is set to Normal, do these methods
+            if (CommonGlobals.GetInputLock() == Enums.InputLock.Root)
             {
-                // If piloting, call the pilot function
-                if (CommonGlobals.CameraInstance.isPiloting)
-                    CommonGlobals.CameraInstance.PilotCamera();
+                if (Input.GetKeyDown(KeyCode.F))
+                    CommonGlobals.SetInputLock(Enums.InputLock.Fun);
 
-                // If following, call the follow function
-                if (CommonGlobals.CameraInstance.isFollowing)
-                    CommonGlobals.CameraInstance.LookAtTarget();
+                if (Input.GetKeyDown(KeyCode.T))
+                    CommonGlobals.SetInputLock(Enums.InputLock.Tools);
 
-                // Toggle piloting
-                if (Input.GetKeyDown(KeyCode.H))
-                    CommonGlobals.CameraInstance.TogglePilot();
-
-                // Lock these functions so they dont interfere with piloting the camera
-                if (CommonGlobals.inputLock == Enums.InputLock.Normal)
+                if (Input.GetKeyDown(KeyCode.G))
                 {
-                    // Toggle following
-                    if (Input.GetKeyDown(KeyCode.F))
-                        CommonGlobals.CameraInstance.ToggleFollow();
-
-                    // Recentering
-                    if (Input.GetKeyDown(KeyCode.G))
-                        CommonGlobals.CameraInstance.RecenterOnTarget();
+                    if (CommonGlobals.CameraInstance == null)
+                        new FreeCamera();
+                    else
+                        CommonGlobals.SetInputLock(Enums.InputLock.CameraControl);
                 }
             }
-            else
-            {
-                if (Input.GetKeyDown(KeyCode.G))
-                    new FreeCamera();
-            }
-            
-            // If the lock is set to normal, do these methods
-            if (CommonGlobals.inputLock == Enums.InputLock.Normal)
-            {
-                // List all things in the current scene
-                if (Input.GetKeyDown(KeyCode.Home))
-                    RecursiveFunctions.SceneList();
 
-                // List all findable id's in the current scene
-                if (Input.GetKeyDown(KeyCode.Insert))
-                    RecursiveFunctions.SceneList("$ID_FINDER");
-
+            // Fun controls
+            if (CommonGlobals.GetInputLock() == Enums.InputLock.Fun)
+            {
                 // Spawn or delete the gravity cube
                 if (Input.GetKeyDown(KeyCode.C))
                 {
@@ -101,6 +91,36 @@ namespace zCubed
                         new GravityCube();
                     else
                         CommonGlobals.GravCubeInstance.Delete();
+                }
+
+                // Spawn or delete the black hole
+                if (Input.GetKeyDown(KeyCode.B))
+                {
+                    if (CommonGlobals.BlackHoleInstance == null)
+                        new BlackHole();
+                    else
+                        CommonGlobals.BlackHoleInstance.Delete();
+                }
+
+                // Spawn or delete the chroma screen
+                if (Input.GetKeyDown(KeyCode.N))
+                {
+                    if (CommonGlobals.ChromaInstance == null)
+                        new ChromaScreen();
+                    else
+                        CommonGlobals.ChromaInstance.Delete();
+                }
+
+                if (Input.GetKeyDown(KeyCode.M))
+                    if (CommonGlobals.ChromaInstance != null)
+                        CommonGlobals.ChromaInstance.FlipColor();
+
+                if (Input.GetKeyDown(KeyCode.V))
+                {
+                    if (CommonGlobals.TurnTableInstance == null)
+                        new TurnTable();
+                    else
+                        CommonGlobals.TurnTableInstance.Delete();
                 }
 
                 #region GRAVITY MODIFICATION
@@ -122,14 +142,50 @@ namespace zCubed
                     TimeModifier.DecrementTimeMod();
                 #endregion
 
+                #region LIGHT MODIFICATION
+                if (Input.GetKeyDown(KeyCode.Z))
+                    GlobalLightModifier.IncrementMod();
+
+                if (Input.GetKeyDown(KeyCode.X))
+                    GlobalLightModifier.DecrementMod();
+                #endregion
+
                 // Reset the values
                 if (Input.GetKeyDown(KeyCode.R))
                     CommonGlobals.DefaultValues();
 
                 // Output the values
-                if (Input.GetKeyDown(KeyCode.Tab))
+                if (Input.GetKeyDown(KeyCode.T))
                     CommonGlobals.OutputValues();
             }
+
+            // Tool controls
+            if (CommonGlobals.GetInputLock() == Enums.InputLock.Tools)
+            {
+                if (Input.GetKeyDown(KeyCode.Q))
+                    ObjectIDLogger.OutputEntireAssetDatabase();
+
+                if (Input.GetKeyDown(KeyCode.W))
+                    MaterialStripper.StripMaterials();
+
+                if (Input.GetKeyDown(KeyCode.A))
+                    RecursiveFunctions.SceneList();
+
+                if (Input.GetKeyDown(KeyCode.S))
+                    RecursiveFunctions.SceneList("$ID_FINDER");
+
+            }
+
+            // Free Camera creation and usage
+            if (CommonGlobals.CameraInstance != null)
+                CommonGlobals.CameraInstance.CameraUpdate();
+
+            // TurnTable Update
+            if (CommonGlobals.TurnTableInstance != null)
+                CommonGlobals.TurnTableInstance.Update();
+
+            // Instance Global Update
+            InstanceGlobals.Update();
         }
         #endregion
     }

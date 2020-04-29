@@ -1,55 +1,83 @@
-# zCubed's Boneworks Multi-Tool v1.2.2
+# zCubed's Boneworks Multi-Tool v1.3.0 - Release
 
 ### For unstable releases, download from the source here
 ### For stable releases, download from https://bonetome.com/mods/10 or releases tab here
 
-**Update v1.2.1**
-* The entire project has been refactored and restructured for easy modification and usage as a library.  
-* The project is now open source, anyone can help contribute via pull requests and forks!  
+**Notice**
+* PLEASE READ THE CONTROLS. The mod has undergone major core changes between v1.2.2 and v1.3.0, meaning that all the controls have changed, sorry for this.
 
-**Update v1.2.2**
-* ADDED - Instance ID Finder, allows for people to find Instance IDs so they can precache prefabs and other game content.
-* ADDED - Instance ID Finder Keybind.
-
-**Update v1.2.2 PATCH 1**
-* FIXED - Free Camera was broken, reported to not be looking at the player. The issued patch should resolve the issue.
+**Changelog**  
+* This has been moved to a new file called CHANGELOG.md
 
 **Feature List**  
 * Gravity Modifier  
 * Time Scale Modifier  
 * Free Camera
 * Free Camera tracking player
+* Free Camera third person
+* Free Camera first person
+* Free Camera physics mode
+* Free Camera turn table view
 * Free Camera control using WASD + Mouse  
+* HoloHead for filming
+* Action Camera Post Processing Toggle
 * Gravity Cube (Object Oriented Gravity)  
+* Black Hole (Sucks everything around it inside it)
+* Green Screen for filming
+* Turn Table for filming guns and asset mods
+* Scene Light Modifier (WIP, ONLY DARKENS AND BRIGHTENS LIGHTS)
 * Loaded Scene Outputter  
+* Object ID Lister (Entire AssetDatabase)
+* Object ID Lister (Scene's Objects)
+* Material Stripper (Whiteworld)
 * Entire Scene Outputter, goes through the entire scene, listing GameObjects + their Children + their Components
 allowing for other modders to locate Components or GameObjects they want to modify.
-* Modular systems, allowing for other modders to utilize this mod as an extension of their mod
-* It's up to you if you count this as a feature, but this mod is open source! Add onto it and submit a pull request and I may add it to the mod! 
 
 **Normal Controls**  
-* Q = Increment Gravity  
-* W = Decrement Gravity  
-* A = Increment TimeScale  
-* D = Decrement TimeScale  
-* 0 (Zero) = Zero Gravity Toggle  
-* C = Gravity Cube spawn and despawn  
-* F = Toggle Free Camera tracking  
-* G = Spawn Free Camera / Recenter camera
-* R = Reset Gravity and TimeScale  
-* Tab = Output Gravity and TimeScale
-* Insert = Output all Object IDs in the entire scene
-* Home = Output all Scene Objects and Components in the entire scene
+* G = Spawn Camera / Take Control of Camera
+* F = Fun Controls
+* T = Tool Controls
 
-**Pilot Mode Controls**  
-* W & S = Forward and Back  
-* A & D = Left and Right  
-* C & V = Up and Down  
-* O = Orthographic mode  
-* F = Toggle FOV Scaler (Change with Scroll Wheel)  
-* E = Toggle Speed Multiplier Scaler (Change with Scroll Wheel) 
-* Tab = Output current value being modified (Will be changed later for a GUI)
-* Mouse = Rotate Camera
+**Camera Mode Controls**  
+* E = Exit Mode
+* F = Face Player Mode
+* T = Third Person
+* H = Pilot Mode
+* J = First Person
+* U = TurnTable Mode
+* B = Physics Mode
+* G = Recenter On Player
+* L = Toggle HoloHead Visibility
+* R = Toggle FOV Modifier
+* Y = Toggle Speed Modifier
+* P = Toggle Post Processing
+* WS = Pilot Mode Forward / Back
+* AD = Pilot Mode Left / Right
+* Scroll Wheel = Offset Active Modifier
+* M = List Modifiers
+* (Third Person) B = Switch Axis Offset
+
+
+**Fun Controls**
+* E = Exit Mode
+* B = Black Hole Spawn / Remove
+* C = Gravity Cube Spawn / Remove
+* N = Chroma Screen Spawn / Remove
+* M = Chroma Screen Flip Color
+* V = TurnTable Spawn / Remove
+* 0 = Toggle Zero G / Revert Gravity
+* Q / W = Incremenet / Decrement Gravity Scale
+* A / D = Increment / Decrement Time Scale
+* Z / X = Increment / Decrement Light Modifier (WIP)
+* R = Reset Values To Defaults
+* T = Output Values
+
+**Tool Controls**
+* E = Exit Mode
+* Q = Output Object Instance IDs (Entire AssetDatabase, WILL FREEZE YOUR GAME FOR A BIT)
+* W = Strip Scene's Materials
+* A = List Entire Scene (GameObjects, Children, and Components, WILL FREEZE YOUR GAME FOR A BIT)
+* S = List Scene's Object Instance IDs (WILL FREEZE YOUR GAME FOR A BIT)
 
 **Known Issues**
 * Zero Gravity will break the game, spawn AI before entering Zero Gravity, when they disappear, keep Zero Gravity enabled and reload the scene.  
@@ -70,12 +98,13 @@ allowing for other modders to locate Components or GameObjects they want to modi
 
 **Feature Requesting**
 * Request for features inside issues or on the Boneworks Discord server.
+* Fork the repo and add your changes and pull request your changes back into it.
 
 **Requirements For Contributing**
 * A pull request with your changes inside.
 * The request has been reviewed, if it is fine, you will have no issues. If there is a discrepancy of any sort, we will tell you about it.
 
 **Crediting**
-* If you make a video for this mod, you can share it with me and I will consider adding it.
-* If you use this mod in a video, consider giving credit to the GitHub page.
+* If you make a video for this mod, you can share it with me and I will consider adding it as a showcase video.
+* If you use this mod in a video, make sure to give credit to the GitHub page.
 * If you use this mod as a library for your mod, there is no need to give credit.

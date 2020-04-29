@@ -274,6 +274,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Features\BlackHole.cs" />
+    <Compile Include="Features\ChromaScreen.cs" />
+    <Compile Include="Features\GlobalLightModifier.cs" />
+    <Compile Include="Features\TurnTable.cs" />
+    <Compile Include="Globals\FileGlobals.cs" />
+    <Compile Include="Globals\InstanceGlobals.cs" />
     <Compile Include="Misc\BuildInfo.cs" />
     <Compile Include="Features\FreeCamera.cs" />
     <Compile Include="Features\GravityCube.cs" />
@@ -283,7 +289,11 @@
     <Compile Include="Globals\Enums.cs" />
     <Compile Include="Globals\RecursiveGlobals.cs" />
     <Compile Include="Main.cs" />
+    <Compile Include="Misc\ControlDocumentation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tools\FileSystem.cs" />
+    <Compile Include="Tools\MaterialStripper.cs" />
+    <Compile Include="Tools\ObjectIDLogger.cs" />
     <Compile Include="Tools\RecursiveFunctions.cs" />
     <Compile Include="Tools\SceneLoadLogger.cs" />
   </ItemGroup>
