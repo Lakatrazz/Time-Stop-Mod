@@ -53,7 +53,7 @@ namespace zCubed.Features
         {
             if (Orb)
             {
-                Il2CppReferenceArray<Collider> Objects = Physics.OverlapSphere(Orb.transform.position, 20f);
+                Il2CppReferenceArray<Collider> Objects = Physics.OverlapSphere(Orb.transform.position, 25f);
 
                 if (Objects != null)
                 {
@@ -63,7 +63,7 @@ namespace zCubed.Features
                         Vector3 direction = Orb.transform.position - Objects[o].transform.position;
 
                         if (TargetRB)
-                            TargetRB.AddForce(direction.normalized * 30);
+                            TargetRB.AddForce(direction.normalized * 50f);
                     }
                 }
             }

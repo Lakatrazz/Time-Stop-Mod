@@ -16,12 +16,16 @@ namespace zCubed.Features
 
         GameObject HoloHead = null;
 
-        MeshRenderer CameraMesh = null;
+        Collider CubeCollider = null;
+        MeshRenderer CubeRenderer = null;
+        Rigidbody CubeRigidbody = null;
 
         public bool isPiloting = false;
         public bool isFollowing = false;
         public bool isThirdPerson = false;
         public bool isFirstPerson = false;
+        public bool isTurnTabling = false;
+        public bool isPhysics = false;
 
         bool isManipulatingSpeed = false;
         bool isManipulatingFOV = false;
@@ -63,11 +67,14 @@ namespace zCubed.Features
 
                         GameObject FreeCube = GameObject.CreatePrimitive(PrimitiveType.Cube);
                         FreeCube.transform.position = PlayerHead.transform.position;
-                        FreeCube.transform.localScale = Vector3.one / 10f;
+                        FreeCube.transform.localScale = Vector3.one / 12f;
                         FreeCube.name = "Free Camera";
-                        FreeCube.GetComponent<Collider>().enabled = false;
 
-                        CameraMesh = FreeCube.GetComponent<MeshRenderer>();
+                        CubeCollider = FreeCube.GetComponent<Collider>();
+                        CubeRenderer = FreeCube.GetComponent<MeshRenderer>();
+                        CubeRigidbody = FreeCube.AddComponent<Rigidbody>();
+
+                        CubeRigidbody.isKinematic = true;
 
                         PlayerCamera.transform.parent = FreeCube.transform;
                         Component.Destroy(PlayerCamera.GetComponent<VLB.Samples.FreeCameraController>());
@@ -82,6 +89,8 @@ namespace zCubed.Features
                         CameraTransform = FreeCube.transform;
                         CameraComponent = PlayerCamera.GetComponent<Camera>();
                         CameraComponent.transform.localEulerAngles = Vector3.zero;
+                        CameraComponent.transform.localPosition = Vector3.zero;
+                        CameraComponent.nearClipPlane = 0.3f;
 
                         InstanceGlobals.AttemptToCacheAssets();
                         if (InstanceGlobals.holoHead)
@@ -130,6 +139,12 @@ namespace zCubed.Features
 
                     if (Input.GetKeyDown(KeyCode.G))
                         RecenterOnTarget();
+
+                    if (Input.GetKeyDown(KeyCode.U))
+                        EnableTurnTabling();
+
+                    if (Input.GetKeyDown(KeyCode.B))
+                        EnablePhysics();
 
                     // Modifiers
                     if (Input.GetKeyDown(KeyCode.R))
@@ -242,6 +257,9 @@ namespace zCubed.Features
                 if (isFirstPerson)
                     FirstPerson();
 
+                if (isTurnTabling)
+                    TurnTable();
+
                 // Sync the FOV if it is out of sync
                 if (FOV != CameraComponent.fieldOfView)
                     CameraComponent.fieldOfView = FOV;
@@ -314,6 +332,21 @@ namespace zCubed.Features
                 CameraTransform.rotation = CameraFollowTarget.rotation;
             }
         }
+
+        // Turn table centering
+        void TurnTable()
+        {
+            if (CommonGlobals.TurnTableInstance != null)
+            {
+                CameraTransform.transform.position = CommonGlobals.TurnTableInstance.CameraSlot.position;
+                CameraTransform.transform.rotation = CommonGlobals.TurnTableInstance.CameraSlot.rotation;
+            }
+            else
+            {
+                ResetState();
+                MelonModLogger.Log("Error: No turn table");
+            }
+        }
         #endregion
 
         #region ENABLES
@@ -342,10 +375,24 @@ namespace zCubed.Features
         // Enable Head Camera
         public void EnableFirstPerson()
         {
-            if (CameraMesh)
-                CameraMesh.enabled = false;
-
+            ResetState();
+            CubeRenderer.enabled = false;
             isFirstPerson = true;
+        }
+
+        // Enable Turn Tabling
+        public void EnableTurnTabling()
+        {
+            ResetState();
+            isTurnTabling = true;
+        }
+
+        // Enable Physics mode
+        public void EnablePhysics()
+        {
+            ResetState();
+            CubeRigidbody.isKinematic = false;
+            isPhysics = true;
         }
         #endregion
 
@@ -404,9 +451,12 @@ namespace zCubed.Features
             isFollowing = false;
             isThirdPerson = false;
             isFirstPerson = false;
+            isTurnTabling = false;
+            isPhysics = false;
 
-            if (CameraMesh)
-                CameraMesh.enabled = true;
+            CubeRenderer.enabled = true;
+            CubeCollider.enabled = true;
+            CubeRigidbody.isKinematic = true;
         }
     }
 }

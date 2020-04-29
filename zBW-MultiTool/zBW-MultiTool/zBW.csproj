@@ -275,7 +275,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Features\BlackHole.cs" />
+    <Compile Include="Features\ChromaScreen.cs" />
     <Compile Include="Features\GlobalLightModifier.cs" />
+    <Compile Include="Features\TurnTable.cs" />
     <Compile Include="Globals\FileGlobals.cs" />
     <Compile Include="Globals\InstanceGlobals.cs" />
     <Compile Include="Misc\BuildInfo.cs" />

@@ -21,6 +21,8 @@ namespace zCubed.Globals
         public static FreeCamera CameraInstance = null;
         public static GravityCube GravCubeInstance = null;
         public static BlackHole BlackHoleInstance = null;
+        public static ChromaScreen ChromaInstance = null;
+        public static TurnTable TurnTableInstance = null;
 
         public static void Reset()
         {
@@ -32,6 +34,9 @@ namespace zCubed.Globals
             // Clear instances
             CameraInstance = null;
             GravCubeInstance = null;
+            BlackHoleInstance = null;
+            ChromaInstance = null;
+            TurnTableInstance = null;
 
             // Reset the input lock
             inputLock = Enums.InputLock.Root;

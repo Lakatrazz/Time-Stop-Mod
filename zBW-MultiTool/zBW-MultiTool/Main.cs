@@ -1,5 +1,4 @@
-﻿using System;
-using MelonLoader;
+﻿using MelonLoader;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnhollowerBaseLib;
@@ -17,7 +16,7 @@ namespace zCubed
             MelonModLogger.Log("zBW-Tool is a multi-tool mod.");
             MelonModLogger.Log("Report any issues to the GitHub page or Boneworks Discord Server.");
             MelonModLogger.Log("Press TAB to list the current Input Mode's controls.");
-            FileGlobals.VerifyDataPath();           
+            FileGlobals.VerifyDataPath();
         }
         #endregion
 
@@ -72,6 +71,14 @@ namespace zCubed
 
                 if (Input.GetKeyDown(KeyCode.T))
                     CommonGlobals.SetInputLock(Enums.InputLock.Tools);
+
+                if (Input.GetKeyDown(KeyCode.G))
+                {
+                    if (CommonGlobals.CameraInstance == null)
+                        new FreeCamera();
+                    else
+                        CommonGlobals.SetInputLock(Enums.InputLock.CameraControl);
+                }
             }
 
             // Fun controls
@@ -93,6 +100,27 @@ namespace zCubed
                         new BlackHole();
                     else
                         CommonGlobals.BlackHoleInstance.Delete();
+                }
+
+                // Spawn or delete the chroma screen
+                if (Input.GetKeyDown(KeyCode.N))
+                {
+                    if (CommonGlobals.ChromaInstance == null)
+                        new ChromaScreen();
+                    else
+                        CommonGlobals.ChromaInstance.Delete();
+                }
+
+                if (Input.GetKeyDown(KeyCode.M))
+                    if (CommonGlobals.ChromaInstance != null)
+                        CommonGlobals.ChromaInstance.FlipColor();
+
+                if (Input.GetKeyDown(KeyCode.V))
+                {
+                    if (CommonGlobals.TurnTableInstance == null)
+                        new TurnTable();
+                    else
+                        CommonGlobals.TurnTableInstance.Delete();
                 }
 
                 #region GRAVITY MODIFICATION
@@ -150,21 +178,11 @@ namespace zCubed
 
             // Free Camera creation and usage
             if (CommonGlobals.CameraInstance != null)
-            {
                 CommonGlobals.CameraInstance.CameraUpdate();
 
-                // Lock these functions so they dont interfere with piloting the camera
-                if (CommonGlobals.GetInputLock() == Enums.InputLock.Root)
-                {
-                    if (Input.GetKeyDown(KeyCode.G))
-                        CommonGlobals.SetInputLock(Enums.InputLock.CameraControl);
-                }
-            }
-            else
-            {
-                if (Input.GetKeyDown(KeyCode.G))
-                    new FreeCamera();
-            }
+            // TurnTable Update
+            if (CommonGlobals.TurnTableInstance != null)
+                CommonGlobals.TurnTableInstance.Update();
 
             // Instance Global Update
             InstanceGlobals.Update();
