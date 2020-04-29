@@ -56,10 +56,10 @@ namespace zCubed.Misc
 
                 case Enums.InputLock.Tools:
                     MelonModLogger.Log("Controls: E = Exit Mode");
-                    MelonModLogger.Log("Controls: Q = Output Object Instance IDs (Entire AssetDatabase)");
+                    MelonModLogger.Log("Controls: Q = Output Object Instance IDs (Entire AssetDatabase, WILL FREEZE YOUR GAME FOR A BIT)");
                     MelonModLogger.Log("Controls: W = Strip Scene's Materials");
-                    MelonModLogger.Log("Controls: A = List Entire Scene (GameObjects, Children, and Components)");
-                    MelonModLogger.Log("Controls: S = List Scene's Object Instance IDs");
+                    MelonModLogger.Log("Controls: A = List Entire Scene (GameObjects, Children, and Components, WILL FREEZE YOUR GAME FOR A BIT)");
+                    MelonModLogger.Log("Controls: S = List Scene's Object Instance IDs (WILL FREEZE YOUR GAME FOR A BIT)");
                     break;
             }
         }
