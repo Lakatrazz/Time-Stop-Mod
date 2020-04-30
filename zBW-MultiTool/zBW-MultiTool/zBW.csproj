@@ -294,6 +294,7 @@
     <Compile Include="Tools\FileSystem.cs" />
     <Compile Include="Tools\MaterialStripper.cs" />
     <Compile Include="Tools\ObjectIDLogger.cs" />
+    <Compile Include="Tools\PlayerPosLogger.cs" />
     <Compile Include="Tools\RecursiveFunctions.cs" />
     <Compile Include="Tools\SceneLoadLogger.cs" />
   </ItemGroup>

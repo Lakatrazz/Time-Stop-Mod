@@ -60,6 +60,7 @@ namespace zCubed.Misc
                     MelonModLogger.Log("Controls: W = Strip Scene's Materials");
                     MelonModLogger.Log("Controls: A = List Entire Scene (GameObjects, Children, and Components, WILL FREEZE YOUR GAME FOR A BIT)");
                     MelonModLogger.Log("Controls: S = List Scene's Object Instance IDs (WILL FREEZE YOUR GAME FOR A BIT)");
+                    MelonModLogger.Log("Controls: D = Output the player's head position");
                     break;
             }
         }

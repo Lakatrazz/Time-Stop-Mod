@@ -10,6 +10,8 @@ namespace zCubed
 {
     public class MultiTool : MelonMod
     {
+        bool ModLocked = false;
+
         #region APPLICATION START METHOD
         public override void OnApplicationStart()
         {
@@ -37,155 +39,175 @@ namespace zCubed
         #region ON LATE UPDATE METHOD
         public override void OnLateUpdate()
         {
-            #region GRAVITY CUBE
-            // Update the gravity cube, if it exists
-            if (CommonGlobals.GravCubeInstance == null)
-                Physics.gravity = Vector3.up * CommonGlobals.GravityScale;
-            else
-                CommonGlobals.GravCubeInstance.SetGravity();
-            #endregion
+            // Locks the entire mod's ability to update
+            if (!ModLocked)
+            {
+                #region GRAVITY CUBE
+                // Update the gravity cube, if it exists
+                if (CommonGlobals.GravCubeInstance == null)
+                    Physics.gravity = Vector3.up * CommonGlobals.GravityScale;
+                else
+                    CommonGlobals.GravCubeInstance.SetGravity();
+                #endregion
 
-            #region BLACK HOLE
-            if (CommonGlobals.BlackHoleInstance != null)
-                CommonGlobals.BlackHoleInstance.Update();
-            #endregion
+                #region BLACK HOLE
+                if (CommonGlobals.BlackHoleInstance != null)
+                    CommonGlobals.BlackHoleInstance.Update();
+                #endregion
+            }
         }
         #endregion
 
         #region ON UPDATE METHOD
         public override void OnUpdate()
         {
-            // If the lock is not Normal, allow the user to exit back to normal mode by pressing E
-            if (CommonGlobals.GetInputLock() != Enums.InputLock.Root && Input.GetKeyDown(KeyCode.E))
-                CommonGlobals.SetInputLock(Enums.InputLock.Root);
-
-            // List the controls
-            if (Input.GetKeyDown(KeyCode.Tab))
-                Misc.ControlDocumentation.ListCurrentControls();
-
-            // If the lock is set to Normal, do these methods
-            if (CommonGlobals.GetInputLock() == Enums.InputLock.Root)
+            if (Input.GetKeyDown(KeyCode.Alpha6))
             {
-                if (Input.GetKeyDown(KeyCode.F))
-                    CommonGlobals.SetInputLock(Enums.InputLock.Fun);
+                ModLocked = !ModLocked;
 
-                if (Input.GetKeyDown(KeyCode.T))
-                    CommonGlobals.SetInputLock(Enums.InputLock.Tools);
-
-                if (Input.GetKeyDown(KeyCode.G))
-                {
-                    if (CommonGlobals.CameraInstance == null)
-                        new FreeCamera();
-                    else
-                        CommonGlobals.SetInputLock(Enums.InputLock.CameraControl);
-                }
+                if (ModLocked)
+                    MelonModLogger.Log("Mod is locked");
+                else
+                    MelonModLogger.Log("Mod is unlocked");
             }
 
-            // Fun controls
-            if (CommonGlobals.GetInputLock() == Enums.InputLock.Fun)
+            // Locks the entire mod's ability to update
+            if (!ModLocked)
             {
-                // Spawn or delete the gravity cube
-                if (Input.GetKeyDown(KeyCode.C))
+                // If the lock is not Normal, allow the user to exit back to normal mode by pressing E
+                if (CommonGlobals.GetInputLock() != Enums.InputLock.Root && Input.GetKeyDown(KeyCode.E))
+                    CommonGlobals.SetInputLock(Enums.InputLock.Root);
+
+                // List the controls
+                if (Input.GetKeyDown(KeyCode.Tab))
+                    Misc.ControlDocumentation.ListCurrentControls();
+
+                // If the lock is set to Normal, do these methods
+                if (CommonGlobals.GetInputLock() == Enums.InputLock.Root)
                 {
-                    if (CommonGlobals.GravCubeInstance == null)
-                        new GravityCube();
-                    else
-                        CommonGlobals.GravCubeInstance.Delete();
+                    if (Input.GetKeyDown(KeyCode.F))
+                        CommonGlobals.SetInputLock(Enums.InputLock.Fun);
+
+                    if (Input.GetKeyDown(KeyCode.T))
+                        CommonGlobals.SetInputLock(Enums.InputLock.Tools);
+
+                    if (Input.GetKeyDown(KeyCode.G))
+                    {
+                        if (CommonGlobals.CameraInstance == null)
+                            new FreeCamera();
+                        else
+                            CommonGlobals.SetInputLock(Enums.InputLock.CameraControl);
+                    }
                 }
 
-                // Spawn or delete the black hole
-                if (Input.GetKeyDown(KeyCode.B))
+                // Fun controls
+                if (CommonGlobals.GetInputLock() == Enums.InputLock.Fun)
                 {
-                    if (CommonGlobals.BlackHoleInstance == null)
-                        new BlackHole();
-                    else
-                        CommonGlobals.BlackHoleInstance.Delete();
+                    // Spawn or delete the gravity cube
+                    if (Input.GetKeyDown(KeyCode.C))
+                    {
+                        if (CommonGlobals.GravCubeInstance == null)
+                            new GravityCube();
+                        else
+                            CommonGlobals.GravCubeInstance.Delete();
+                    }
+
+                    // Spawn or delete the black hole
+                    if (Input.GetKeyDown(KeyCode.B))
+                    {
+                        if (CommonGlobals.BlackHoleInstance == null)
+                            new BlackHole();
+                        else
+                            CommonGlobals.BlackHoleInstance.Delete();
+                    }
+
+                    // Spawn or delete the chroma screen
+                    if (Input.GetKeyDown(KeyCode.N))
+                    {
+                        if (CommonGlobals.ChromaInstance == null)
+                            new ChromaScreen();
+                        else
+                            CommonGlobals.ChromaInstance.Delete();
+                    }
+
+                    if (Input.GetKeyDown(KeyCode.M))
+                        if (CommonGlobals.ChromaInstance != null)
+                            CommonGlobals.ChromaInstance.FlipColor();
+
+                    if (Input.GetKeyDown(KeyCode.V))
+                    {
+                        if (CommonGlobals.TurnTableInstance == null)
+                            new TurnTable();
+                        else
+                            CommonGlobals.TurnTableInstance.Delete();
+                    }
+
+                    #region GRAVITY MODIFICATION
+                    if (Input.GetKeyDown(KeyCode.Q))
+                        GravityModifier.IncrementGravity();
+
+                    if (Input.GetKeyDown(KeyCode.W))
+                        GravityModifier.DecrementGravity();
+
+                    if (Input.GetKeyDown(KeyCode.Alpha0))
+                        GravityModifier.ZeroGravity();
+                    #endregion
+
+                    #region TIME MODIFICATION
+                    if (Input.GetKeyDown(KeyCode.A))
+                        TimeModifier.IncrementTimeMod();
+
+                    if (Input.GetKeyDown(KeyCode.S))
+                        TimeModifier.DecrementTimeMod();
+                    #endregion
+
+                    #region LIGHT MODIFICATION
+                    if (Input.GetKeyDown(KeyCode.Z))
+                        GlobalLightModifier.IncrementMod();
+
+                    if (Input.GetKeyDown(KeyCode.X))
+                        GlobalLightModifier.DecrementMod();
+                    #endregion
+
+                    // Reset the values
+                    if (Input.GetKeyDown(KeyCode.R))
+                        CommonGlobals.DefaultValues();
+
+                    // Output the values
+                    if (Input.GetKeyDown(KeyCode.T))
+                        CommonGlobals.OutputValues();
                 }
 
-                // Spawn or delete the chroma screen
-                if (Input.GetKeyDown(KeyCode.N))
+                // Tool controls
+                if (CommonGlobals.GetInputLock() == Enums.InputLock.Tools)
                 {
-                    if (CommonGlobals.ChromaInstance == null)
-                        new ChromaScreen();
-                    else
-                        CommonGlobals.ChromaInstance.Delete();
+                    if (Input.GetKeyDown(KeyCode.Q))
+                        ObjectIDLogger.OutputEntireAssetDatabase();
+
+                    if (Input.GetKeyDown(KeyCode.W))
+                        MaterialStripper.StripMaterials();
+
+                    if (Input.GetKeyDown(KeyCode.A))
+                        RecursiveFunctions.SceneList();
+
+                    if (Input.GetKeyDown(KeyCode.S))
+                        RecursiveFunctions.SceneList("$ID_FINDER");
+
+                    if (Input.GetKeyDown(KeyCode.D))
+                        PlayerPosLogger.LogHeadPos();
                 }
 
-                if (Input.GetKeyDown(KeyCode.M))
-                    if (CommonGlobals.ChromaInstance != null)
-                        CommonGlobals.ChromaInstance.FlipColor();
+                // Free Camera creation and usage
+                if (CommonGlobals.CameraInstance != null)
+                    CommonGlobals.CameraInstance.CameraUpdate();
 
-                if (Input.GetKeyDown(KeyCode.V))
-                {
-                    if (CommonGlobals.TurnTableInstance == null)
-                        new TurnTable();
-                    else
-                        CommonGlobals.TurnTableInstance.Delete();
-                }
+                // TurnTable Update
+                if (CommonGlobals.TurnTableInstance != null)
+                    CommonGlobals.TurnTableInstance.Update();
 
-                #region GRAVITY MODIFICATION
-                if (Input.GetKeyDown(KeyCode.Q))
-                    GravityModifier.IncrementGravity();
-
-                if (Input.GetKeyDown(KeyCode.W))
-                    GravityModifier.DecrementGravity();
-
-                if (Input.GetKeyDown(KeyCode.Alpha0))
-                    GravityModifier.ZeroGravity();
-                #endregion
-
-                #region TIME MODIFICATION
-                if (Input.GetKeyDown(KeyCode.A))
-                    TimeModifier.IncrementTimeMod();
-
-                if (Input.GetKeyDown(KeyCode.S))
-                    TimeModifier.DecrementTimeMod();
-                #endregion
-
-                #region LIGHT MODIFICATION
-                if (Input.GetKeyDown(KeyCode.Z))
-                    GlobalLightModifier.IncrementMod();
-
-                if (Input.GetKeyDown(KeyCode.X))
-                    GlobalLightModifier.DecrementMod();
-                #endregion
-
-                // Reset the values
-                if (Input.GetKeyDown(KeyCode.R))
-                    CommonGlobals.DefaultValues();
-
-                // Output the values
-                if (Input.GetKeyDown(KeyCode.T))
-                    CommonGlobals.OutputValues();
+                // Instance Global Update
+                InstanceGlobals.Update();
             }
-
-            // Tool controls
-            if (CommonGlobals.GetInputLock() == Enums.InputLock.Tools)
-            {
-                if (Input.GetKeyDown(KeyCode.Q))
-                    ObjectIDLogger.OutputEntireAssetDatabase();
-
-                if (Input.GetKeyDown(KeyCode.W))
-                    MaterialStripper.StripMaterials();
-
-                if (Input.GetKeyDown(KeyCode.A))
-                    RecursiveFunctions.SceneList();
-
-                if (Input.GetKeyDown(KeyCode.S))
-                    RecursiveFunctions.SceneList("$ID_FINDER");
-
-            }
-
-            // Free Camera creation and usage
-            if (CommonGlobals.CameraInstance != null)
-                CommonGlobals.CameraInstance.CameraUpdate();
-
-            // TurnTable Update
-            if (CommonGlobals.TurnTableInstance != null)
-                CommonGlobals.TurnTableInstance.Update();
-
-            // Instance Global Update
-            InstanceGlobals.Update();
         }
         #endregion
     }
