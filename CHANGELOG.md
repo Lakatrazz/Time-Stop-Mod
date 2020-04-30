@@ -35,3 +35,7 @@ prevent control conflicts.
 * CHANGED - Free Camera search is now more aggressive, it will freeze the game for a bit so wait... If it can't find the player it will quit looking.
 * CHANGED - Mod performance should be better because of optimizations
 * Possibly more that were forgotten about...
+
+**Update v1.3.1**
+* ADDED - Player Position Logger to Tools.
+* ADDED - Mod Locker, press 6 to lock the mod from executing.
