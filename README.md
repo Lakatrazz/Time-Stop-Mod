@@ -1,4 +1,4 @@
-# zCubed's Boneworks Multi-Tool v1.3.0 - Release
+# zCubed's Boneworks Multi-Tool v1.3.1 - Release
 
 ### For unstable releases, download from the source here
 ### For stable releases, download from https://bonetome.com/mods/10 or releases tab here
@@ -34,6 +34,7 @@
 allowing for other modders to locate Components or GameObjects they want to modify.
 
 **Normal Controls**  
+* 6 = Lock / Unlock the mod
 * G = Spawn Camera / Take Control of Camera
 * F = Fun Controls
 * T = Tool Controls
@@ -78,6 +79,7 @@ allowing for other modders to locate Components or GameObjects they want to modi
 * W = Strip Scene's Materials
 * A = List Entire Scene (GameObjects, Children, and Components, WILL FREEZE YOUR GAME FOR A BIT)
 * S = List Scene's Object Instance IDs (WILL FREEZE YOUR GAME FOR A BIT)
+* D = Log the Player's head position
 
 **Known Issues**
 * Zero Gravity will break the game, spawn AI before entering Zero Gravity, when they disappear, keep Zero Gravity enabled and reload the scene.  
