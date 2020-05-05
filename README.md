@@ -1,5 +1,7 @@
 # zCubed's Boneworks Multi-Tool v1.3.1 - Release
 
+### THIS IS NOW CONSIDERED LEGACY AND IS BEING REMADE IN A SERIES OF MODS
+
 ### For unstable releases, download from the source here
 ### For stable releases, download from https://bonetome.com/mods/10 or releases tab here
 
