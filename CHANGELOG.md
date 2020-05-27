@@ -39,3 +39,7 @@ prevent control conflicts.
 **Update v1.3.1**
 * ADDED - Player Position Logger to Tools.
 * ADDED - Mod Locker, press 6 to lock the mod from executing.
+
+**Update v1.3.2**
+* ADDED - Proper Ford Head!.
+* REMOVED - HoloHead.
