@@ -4,3 +4,5 @@
 
 zBW-MultiTool/.vs/zBW-MultiTool/v15/Server/sqlite3
 zBW-MultiTool/.vs/zBW-MultiTool/v15/.suo
+zBW-MultiTool/zBW-MultiTool/obj/Debug/zBW.csproj.CoreCompileInputs.cache
+*.cache

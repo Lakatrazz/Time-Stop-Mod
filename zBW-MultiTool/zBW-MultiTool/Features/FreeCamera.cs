@@ -14,8 +14,6 @@ namespace zCubed.Features
         Transform CameraTransform = null;
         Transform CameraAnchor = null;
 
-        GameObject HoloHead = null;
-
         Collider CubeCollider = null;
         MeshRenderer CubeRenderer = null;
         Rigidbody CubeRigidbody = null;
@@ -41,7 +39,6 @@ namespace zCubed.Features
         float zOffset = -1.5f;
 
         bool isPostProcessingEnabled = true;
-        bool isHoloHeadEnabled = false;
 
         // Constructor
         public FreeCamera()
@@ -92,21 +89,13 @@ namespace zCubed.Features
                         CameraComponent.transform.localPosition = Vector3.zero;
                         CameraComponent.nearClipPlane = 0.3f;
 
-                        InstanceGlobals.AttemptToCacheAssets();
-                        if (InstanceGlobals.holoHead)
-                        {
-                            HoloHead = GameObject.Instantiate(InstanceGlobals.holoHead);
+                        Transform geo = SceneObjects[o].transform.Find("[SkeletonRig (GameWorld Brett)]/Brett@neutral/geoGrp");
 
-                            HoloHead.transform.parent = PlayerHead;
-                            HoloHead.transform.localPosition = Vector3.zero;
-                            HoloHead.transform.localScale = Vector3.one;
-                            HoloHead.transform.localRotation = Quaternion.identity;
-
-                            HoloHead.transform.Find("geoGrp").transform.localPosition = Vector3.up * -1.65f;
-                            HoloHead.transform.Find("SHJntGrp").transform.localPosition = Vector3.up * -1.65f;
-
-                            HoloHead.active = false;
-                        }
+                        geo.Find("brett_face").gameObject.SetActive(true);
+                        geo.Find("brett_hairCap").gameObject.SetActive(true);
+                        geo.Find("brett_hairCards").gameObject.SetActive(true);
+                        geo.Find("brett_shadowCast_face").gameObject.SetActive(false);
+                        geo.Find("brett_shadowCast_hair").gameObject.SetActive(false);
 
                         CommonGlobals.CameraInstance = this;
                         MelonModLogger.Log("Instance: Created Free Camera, press G to control it");
@@ -206,9 +195,6 @@ namespace zCubed.Features
 
                     if (Input.GetKeyDown(KeyCode.P))
                         TogglePostProcessing();
-
-                    if (Input.GetKeyDown(KeyCode.L))
-                        ToggleHoloHead();
 
                     // Output the current Speed and FOV
                     if (Input.GetKeyDown(KeyCode.M))
@@ -431,17 +417,6 @@ namespace zCubed.Features
             string state = isPostProcessingEnabled ? "On" : "Off";
 
             MelonModLogger.Log("Free Camera: Post Processing " + state);
-        }
-
-        // Toggle the HoloHead's visibility
-        public void ToggleHoloHead()
-        {
-            if (HoloHead != null)
-            {
-                isHoloHeadEnabled = !isHoloHeadEnabled;
-
-                HoloHead.active = isHoloHeadEnabled;
-            }
         }
 
         // General function for resetting all bools
