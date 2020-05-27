@@ -1,4 +1,4 @@
-# zCubed's Boneworks Multi-Tool v1.3.1 - Release
+# zCubed's Boneworks Multi-Tool v1.3.2 - Release
 
 ### THIS IS NOW CONSIDERED LEGACY AND IS BEING REMADE IN A SERIES OF MODS
 
