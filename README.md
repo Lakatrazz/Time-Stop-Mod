@@ -21,7 +21,7 @@
 * Free Camera physics mode
 * Free Camera turn table view
 * Free Camera control using WASD + Mouse  
-* HoloHead for filming
+* Proper Ford Head for filming!
 * Action Camera Post Processing Toggle
 * Gravity Cube (Object Oriented Gravity)  
 * Black Hole (Sucks everything around it inside it)
@@ -50,7 +50,6 @@ allowing for other modders to locate Components or GameObjects they want to modi
 * U = TurnTable Mode
 * B = Physics Mode
 * G = Recenter On Player
-* L = Toggle HoloHead Visibility
 * R = Toggle FOV Modifier
 * Y = Toggle Speed Modifier
 * P = Toggle Post Processing
